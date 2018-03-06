@@ -2,18 +2,23 @@ package com.patis.wms.entity;
 
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+@Data
 public class Person {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
+
+    @OneToMany( cascade = CascadeType.ALL, mappedBy="person" )
+    private List<Worker> jobs;
 
     private String name;
     private String lastName;
@@ -21,7 +26,7 @@ public class Person {
     private LocalDate birthDate;
     private String email;
 
-    public Person(){}
+
 
     public Person(String name, String lastName, String middleName, LocalDate birthDate, String email) {
         this.name = name;
@@ -31,51 +36,4 @@ public class Person {
         this.email = email;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

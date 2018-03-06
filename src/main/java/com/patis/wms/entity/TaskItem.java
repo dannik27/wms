@@ -1,0 +1,27 @@
+package com.patis.wms.entity;
+
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Data
+public class TaskItem {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private long id;
+
+    @ManyToOne( cascade = CascadeType.ALL )
+    @JoinColumn(name="id_task")
+    private Task task;
+
+    @ManyToOne( cascade = CascadeType.ALL )
+    @JoinColumn(name="id_product")
+    private Product product;
+
+    @OneToMany( cascade = CascadeType.ALL, mappedBy="taskItem" )
+    private List<Distribution> distributions;
+
+}
