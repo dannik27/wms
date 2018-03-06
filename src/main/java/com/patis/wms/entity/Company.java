@@ -21,5 +21,11 @@ public class Company {
     private long id;
 
 
+    private String name;
+    private String description;
+    private String inn;
+    private String kpp;
+    private String email;
+    private String phone;
 
 }

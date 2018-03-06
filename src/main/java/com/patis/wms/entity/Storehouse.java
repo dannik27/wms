@@ -16,4 +16,6 @@ public class Storehouse {
     @OneToMany( cascade = CascadeType.ALL, mappedBy="storehouse" )
     private List<StorehouseCell> storehouseCells;
 
+
+    private String name;
 }

@@ -3,6 +3,7 @@ package com.patis.wms.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -31,5 +32,7 @@ public class Transportation {
     @ManyToOne( cascade = CascadeType.ALL )
     @JoinColumn(name="id_packing_list")
     private PackingList packingList;
+
+    private LocalDate date;
 
 }

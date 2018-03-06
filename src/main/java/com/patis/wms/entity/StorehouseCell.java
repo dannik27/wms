@@ -20,4 +20,7 @@ public class StorehouseCell {
     @OneToMany( cascade = CascadeType.ALL, mappedBy="storehouseCell" )
     private List<Distribution> distributions;
 
+    private String name;
+    private float capacity;
+
 }

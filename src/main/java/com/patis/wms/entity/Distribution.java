@@ -20,4 +20,7 @@ public class Distribution {
     @JoinColumn(name="id_task_item")
     private TaskItem taskItem;
 
+    private int count;
+
+
 }

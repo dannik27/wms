@@ -24,4 +24,6 @@ public class TaskItem {
     @OneToMany( cascade = CascadeType.ALL, mappedBy="taskItem" )
     private List<Distribution> distributions;
 
+    private int count;
+
 }

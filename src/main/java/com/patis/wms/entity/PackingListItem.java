@@ -16,4 +16,10 @@ public class PackingListItem {
     @JoinColumn(name="id_packing_list")
     private PackingList packingList;
 
+    @ManyToOne( cascade = CascadeType.ALL )
+    @JoinColumn(name="id_product")
+    private Product product;
+
+    private int count;
+
 }
