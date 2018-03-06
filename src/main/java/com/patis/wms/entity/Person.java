@@ -4,13 +4,14 @@ package com.patis.wms.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Data
+@Data @NoArgsConstructor
 public class Person {
 
     @Id

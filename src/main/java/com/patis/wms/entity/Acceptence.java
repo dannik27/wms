@@ -5,12 +5,13 @@ package com.patis.wms.entity;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 
 @Entity
-@Data
+@Data @NoArgsConstructor
 public class Acceptence {
 
     @Id
