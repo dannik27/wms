@@ -13,11 +13,11 @@ public class Distribution {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-    @ManyToOne( cascade = CascadeType.ALL )
+    @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_storehouse_cell")
     private StorehouseCell storehouseCell;
 
-    @ManyToOne( cascade = CascadeType.ALL )
+    @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_task_item")
     private TaskItem taskItem;
 

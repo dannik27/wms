@@ -17,7 +17,7 @@ public class PackingList {
     @OneToMany( cascade = CascadeType.ALL, mappedBy="packingList" )
     private List<PackingListItem> packingListItems;
 
-    @ManyToOne( cascade = CascadeType.ALL )
+    @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_transportation")
     private Transportation transportation;
 

@@ -14,7 +14,7 @@ public class StorehouseCell {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-    @ManyToOne( cascade = CascadeType.ALL )
+    @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_storehouse")
     private Storehouse storehouse;
 

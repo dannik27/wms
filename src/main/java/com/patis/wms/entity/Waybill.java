@@ -13,11 +13,11 @@ public class Waybill {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-    @ManyToOne( cascade = CascadeType.ALL )
+    @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_transportation")
     private Transportation transportation;
 
-    @ManyToOne( cascade = CascadeType.ALL )
+    @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_transport_company")
     private TransportCompany transportCompany;
 

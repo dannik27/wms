@@ -15,11 +15,11 @@ public class Task {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-    @ManyToOne( cascade = CascadeType.ALL )
+    @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_task_type")
     private TaskType taskType;
 
-    @ManyToOne( cascade = CascadeType.ALL )
+    @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_worker")
     private Worker worker;
 
