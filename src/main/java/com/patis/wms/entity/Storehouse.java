@@ -11,12 +11,15 @@ import java.util.List;
 public class Storehouse {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
     @OneToMany( cascade = CascadeType.ALL, mappedBy="storehouse" )
     private List<StorehouseCell> storehouseCells;
 
+    @ManyToOne( cascade = CascadeType.PERSIST )
+    @JoinColumn(name="id_customer")
+    private Customer customer;
 
     private String name;
 }

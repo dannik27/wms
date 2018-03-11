@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Waybill {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne( cascade = CascadeType.PERSIST )

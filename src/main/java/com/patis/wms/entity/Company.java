@@ -15,12 +15,14 @@ import javax.persistence.*;
 public class Company {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_person")
     private Person contactPerson;
+
+
 
     private String name;
     private String description;

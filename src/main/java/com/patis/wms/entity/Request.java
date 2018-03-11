@@ -1,40 +1,45 @@
 package com.patis.wms.entity;
 
+
+
+
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
 
 @Entity
 @Data @NoArgsConstructor
-public class Transportation {
+public class Request {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne( cascade = CascadeType.PERSIST )
-    @JoinColumn(name="id_task_in")
-    private Task taskIn;
+    @OneToMany( cascade = CascadeType.ALL, mappedBy="request" )
+    private List<RequestItem> requestItems;
 
     @ManyToOne( cascade = CascadeType.PERSIST )
-    @JoinColumn(name="id_task_out")
-    private Task taskOut;
+    @JoinColumn(name="id_worker")
+    private Worker author;
 
     @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_customer")
     private Customer customer;
 
     @ManyToOne( cascade = CascadeType.PERSIST )
-    @JoinColumn(name="id_waybill")
-    private Waybill waybill;
+    @JoinColumn(name="id_storehouse_from")
+    private Storehouse storehouseFrom;
 
     @ManyToOne( cascade = CascadeType.PERSIST )
-    @JoinColumn(name="id_packing_list")
-    private PackingList packingList;
+    @JoinColumn(name="id_storehouse_to")
+    private Storehouse storehouseTo;
 
-    private LocalDate date;
-    private float grossWeight;
+
+    private LocalDate dateBegin;
 
 }

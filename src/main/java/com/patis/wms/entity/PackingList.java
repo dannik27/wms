@@ -11,11 +11,9 @@ import java.util.List;
 public class PackingList {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany( cascade = CascadeType.ALL, mappedBy="packingList" )
-    private List<PackingListItem> packingListItems;
 
     @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_transportation")

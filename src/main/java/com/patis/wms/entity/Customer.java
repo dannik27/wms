@@ -11,7 +11,7 @@ import java.util.List;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne( cascade = CascadeType.PERSIST )
@@ -20,6 +20,9 @@ public class Customer {
 
     @OneToMany( cascade = CascadeType.ALL, mappedBy="customer" )
     private List<Transportation> transportation;
+
+    @OneToMany( cascade = CascadeType.ALL, mappedBy="customer" )
+    private List<Storehouse> storehouses;
 
 
 
