@@ -1,4 +1,3 @@
-delete from person;
 
 
 insert into person (id, name, last_name, middle_name, birth_date, email)

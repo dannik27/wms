@@ -26,6 +26,7 @@ public class Company {
     private String description;
     private String inn;
     private String kpp;
+    private String okpo;
     private String email;
     private String phone;
 

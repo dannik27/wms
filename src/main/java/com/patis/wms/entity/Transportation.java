@@ -15,12 +15,12 @@ public class Transportation {
     private long id;
 
     @ManyToOne( cascade = CascadeType.PERSIST )
-    @JoinColumn(name="id_acceptence")
-    private Acceptence acceptence;
+    @JoinColumn(name="id_task_in")
+    private Task taskIn;
 
     @ManyToOne( cascade = CascadeType.PERSIST )
-    @JoinColumn(name="id_shipment")
-    private Shipment shipment;
+    @JoinColumn(name="id_task_out")
+    private Task taskOut;
 
     @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_customer")
