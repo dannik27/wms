@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("person")
+@RequestMapping("/person")
 public class PersonController {
 
-    @Autowired
+
     PersonService personService;
 
-    @GetMapping({"/", " "})
+    @GetMapping("/")
     ResponseEntity<List<Person>> findAll(){
 
         List<Person> result = personService.findAll();
@@ -29,5 +29,7 @@ public class PersonController {
         }
 
     }
+
+
 
 }

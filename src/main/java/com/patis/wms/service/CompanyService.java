@@ -22,5 +22,6 @@ public class CompanyService {
     public void save(Company company){
         companyRepository.save(company);
     }
+    public void remove(Company company){ companyRepository.delete(company);}
 
 }

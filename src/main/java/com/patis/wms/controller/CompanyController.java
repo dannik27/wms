@@ -18,7 +18,7 @@ public class CompanyController {
     @Autowired
     CompanyService companyService;
 
-    @GetMapping({"/", " "})
+    @GetMapping("/")
     ResponseEntity<List<Company>> findAll(){
 
         List<Company> result = companyService.findAll();
@@ -30,15 +30,17 @@ public class CompanyController {
 
     }
 
-    @PostMapping({"/", " "})
+    @PostMapping("/")
     void save(@RequestBody Company company){
-
         if(true){
-
             companyService.save(company);
-
         }
-
     }
 
+    @DeleteMapping("/")
+    void delete(@RequestBody Company company){
+        if(true){
+            companyService.remove(company);
+        }
+    }
 }
