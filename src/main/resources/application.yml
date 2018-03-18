@@ -1,10 +1,24 @@
 server:
   port: 8080
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+
+---
+
+spring:
+  profiles: prod
   datasource:
     url: jdbc:postgresql://kokoserver.me:5432/wms
     username: wms
     password: wms
-  jpa:
-    hibernate:
-      ddl-auto: create

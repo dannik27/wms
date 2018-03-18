@@ -18,7 +18,10 @@ public class Worker {
     @JoinColumn(name="id_person")
     private Person person;
 
-    @OneToMany( cascade = CascadeType.ALL, mappedBy="worker" )
-    private List<Task> tasks;
+    @ManyToOne( cascade = CascadeType.PERSIST )
+    @JoinColumn(name="id_role")
+    private Role role;
+
+
 
 }

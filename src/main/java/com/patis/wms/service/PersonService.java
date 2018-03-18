@@ -20,5 +20,5 @@ public class PersonService {
     public void save(Person person){
         personRepository.save(person);
     }
-
+    public void remove(Person person){ personRepository.delete(person);}
 }

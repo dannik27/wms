@@ -19,7 +19,7 @@ public class Customer {
     private Company company;
 
     @OneToMany( cascade = CascadeType.ALL, mappedBy="customer" )
-    private List<Transportation> transportation;
+    private List<Request> requests;
 
     @OneToMany( cascade = CascadeType.ALL, mappedBy="customer" )
     private List<Storehouse> storehouses;

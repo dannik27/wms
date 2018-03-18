@@ -1,9 +1,11 @@
 package com.patis.wms.controller;
 
 
-import com.patis.wms.entity.Company;
-import com.patis.wms.entity.Person;
-import com.patis.wms.service.CompanyService;
+import com.patis.wms.entity.Customer;
+import com.patis.wms.entity.Storehouse;
+import com.patis.wms.service.CustomerService;
+import com.patis.wms.service.StorehouseService;
+import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +14,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("company")
-public class CompanyController {
+@RequestMapping("storehouse")
+public class StorehouseController {
 
     @Autowired
-    CompanyService companyService;
+    StorehouseService storehouseService;
 
     @GetMapping("/")
-    ResponseEntity<List<Company>> findAll(){
+    ResponseEntity<List<Storehouse>> findAll(){
 
-        List<Company> result = companyService.findAll();
+        List<Storehouse> result = storehouseService.findAll();
         if(result != null){
             return new ResponseEntity<>(result, HttpStatus.OK);
         }else{
@@ -31,19 +33,19 @@ public class CompanyController {
     }
 
     @PostMapping("/")
-    void save(@RequestBody Company company){
+    void save(@RequestBody Storehouse storehouse){
 
         if(true){
-            companyService.save(company);
+            storehouseService.save(storehouse);
         }
 
     }
 
     @DeleteMapping("/")
-    void delete(@RequestBody Company company){
+    void delete(@RequestBody Storehouse storehouse){
 
         if(true){
-            companyService.remove(company);
+            storehouseService.remove(storehouse);
         }
 
     }

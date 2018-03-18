@@ -38,17 +38,17 @@ public class Application extends WebMvcConfigurerAdapter {
                 .build();
     }
 
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter< ? >> converters) {
-        GsonHttpMessageConverter msgConverter = new GsonHttpMessageConverter();
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
-                .create();
-        msgConverter.setGson(gson);
-        converters.add(msgConverter);
-
-    }
+//    @Override
+//    public void configureMessageConverters(List<HttpMessageConverter< ? >> converters) {
+//        GsonHttpMessageConverter msgConverter = new GsonHttpMessageConverter();
+//        Gson gson = new GsonBuilder()
+//                .setPrettyPrinting()
+//                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+//                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+//                .create();
+//        msgConverter.setGson(gson);
+//        converters.add(msgConverter);
+//
+//    }
 
 }
