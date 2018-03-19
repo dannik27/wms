@@ -14,7 +14,7 @@ public class TransportCompany {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne( cascade = CascadeType.PERSIST )
+    @ManyToOne( cascade = CascadeType.MERGE )
     @JoinColumn(name="id_company")
     private Company company;
 

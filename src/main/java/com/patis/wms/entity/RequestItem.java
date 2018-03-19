@@ -21,7 +21,7 @@ public class RequestItem {
     @JoinColumn(name="id_request")
     private Request request;
 
-    @ManyToOne( cascade = CascadeType.MERGE )
+    @ManyToOne( cascade = {CascadeType.PERSIST,CascadeType.MERGE} )
     @JoinColumn(name="id_product")
     private Product product;
 

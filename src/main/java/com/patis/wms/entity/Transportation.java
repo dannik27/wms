@@ -30,7 +30,7 @@ public class Transportation {
     @JoinColumn(name="id_packing_list")
     private PackingList packingList;
 
-    @ManyToOne( cascade = CascadeType.PERSIST )
+    @ManyToOne( cascade = {CascadeType.MERGE} )
     @JoinColumn(name="id_request")
     private Request request;
 

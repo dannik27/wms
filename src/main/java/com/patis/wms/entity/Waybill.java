@@ -1,5 +1,6 @@
 package com.patis.wms.entity;
 
+import com.google.gson.annotations.Expose;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ public class Waybill {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
+    @Expose
     @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_transportation")
     private Transportation transportation;
@@ -20,5 +22,8 @@ public class Waybill {
     @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_transport_company")
     private TransportCompany transportCompany;
+
+
+    private String info;
 
 }
