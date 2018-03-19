@@ -49,6 +49,9 @@ INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 20, 'A3')
 INSERT INTO request (date_begin, id_worker, id_customer, id_storehouse_from, id_storehouse_to)
     VALUES ('2018-05-03', 2, 2, 2, 1);
 
+INSERT INTO request_item (count, id_product, id_request) VALUES (40, 1, 1);
+INSERT INTO request_item (count, id_product, id_request) VALUES (15, 2, 1);
+
 
 INSERT into task (id_task_type, id_worker, time_begin, time_end)
     VALUES (1, 2, '2018-03-01', '2018-03-05');

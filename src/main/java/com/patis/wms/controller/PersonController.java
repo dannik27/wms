@@ -1,5 +1,6 @@
 package com.patis.wms.controller;
 
+import com.patis.wms.dto.PersonDTO;
 import com.patis.wms.entity.Person;
 import com.patis.wms.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +30,19 @@ public class PersonController {
     }
 
     @PostMapping("/")
-    void save(@RequestBody Person person){
+    void save(@RequestBody PersonDTO person){
 
         if(true){
-            personService.save(person);
+            personService.save(person.toEntity());
         }
 
     }
 
-    @DeleteMapping("/")
-    void delete(@RequestBody Person person){
+    @DeleteMapping("/{id_person}/")
+    void delete(@PathVariable("id_person") long id_person){
 
         if(true){
-            personService.remove(person);
+            personService.remove(id_person);
         }
 
     }

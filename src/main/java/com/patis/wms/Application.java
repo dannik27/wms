@@ -1,9 +1,14 @@
 package com.patis.wms;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import com.patis.wms.converter.gson.LocalDateAdapter;
 import com.patis.wms.converter.gson.LocalDateTimeAdapter;
+import com.patis.wms.converter.gson.SwaggerGsonAdapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.json.Json;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -28,7 +34,6 @@ public class Application extends WebMvcConfigurerAdapter {
         SpringApplication.run(Application.class, args);
     }
 
-
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -38,17 +43,30 @@ public class Application extends WebMvcConfigurerAdapter {
                 .build();
     }
 
-//    @Override
-//    public void configureMessageConverters(List<HttpMessageConverter< ? >> converters) {
-//        GsonHttpMessageConverter msgConverter = new GsonHttpMessageConverter();
-//        Gson gson = new GsonBuilder()
-//                .setPrettyPrinting()
-//                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-//                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
-//                .create();
-//        msgConverter.setGson(gson);
-//        converters.add(msgConverter);
-//
-//    }
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter< ? >> converters) {
+        GsonHttpMessageConverter msgConverter = new GsonHttpMessageConverter();
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .registerTypeAdapter(Json.class, new SwaggerGsonAdapter())
+                .addSerializationExclusionStrategy(new ExclusionStrategy() {
+                    @Override
+                    public boolean shouldSkipField(FieldAttributes fieldAttributes) {
+                        final Expose ignore = fieldAttributes.getAnnotation(Expose.class);
+                        return ignore != null;
+                    }
+
+                    @Override
+                    public boolean shouldSkipClass(Class<?> aClass) {
+                        return false;
+                    }
+                })
+                .create();
+        msgConverter.setGson(gson);
+        converters.add(msgConverter);
+
+    }
 
 }

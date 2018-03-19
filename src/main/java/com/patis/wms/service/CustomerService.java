@@ -16,6 +16,9 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    public Customer findOne(long id){
+        return customerRepository.findOne(id);
+    }
     public List<Customer> findAll(){
         return (List<Customer>) customerRepository.findAll();
     }

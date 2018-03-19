@@ -16,6 +16,9 @@ public class StorehouseService {
     @Autowired
     private StorehouseRepository storehouseRepository;
 
+    public Storehouse findOne(long id){
+        return storehouseRepository.findOne(id);
+    }
     public List<Storehouse> findAll(){
         return (List<Storehouse>) storehouseRepository.findAll();
     }
