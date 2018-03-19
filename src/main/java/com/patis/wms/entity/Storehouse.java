@@ -1,5 +1,6 @@
 package com.patis.wms.entity;
 
+import com.google.gson.annotations.Expose;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,9 +18,11 @@ public class Storehouse {
     @OneToMany( cascade = CascadeType.ALL, mappedBy="storehouse" )
     private List<StorehouseCell> storehouseCells;
 
+    @Expose
     @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_customer")
     private Customer customer;
 
     private String name;
+    private String address;
 }

@@ -1,6 +1,7 @@
 package com.patis.wms.entity;
 
 
+import com.google.gson.annotations.Expose;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ public class RequestItem {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
+    @Expose
     @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_request")
     private Request request;

@@ -2,6 +2,7 @@ package com.patis.wms.entity;
 
 
 
+import com.google.gson.annotations.Expose;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,17 +15,24 @@ import java.util.List;
 @Data @NoArgsConstructor
 public class Person {
 
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
+    @Expose
     @OneToMany( cascade = CascadeType.ALL, mappedBy="person" )
     private List<Worker> jobs;
 
+
     private String name;
+
     private String lastName;
+
     private String middleName;
+
     private LocalDate birthDate;
+
     private String email;
 
 

@@ -23,16 +23,16 @@ public class Transportation {
     private Task taskOut;
 
     @ManyToOne( cascade = CascadeType.PERSIST )
-    @JoinColumn(name="id_customer")
-    private Customer customer;
-
-    @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_waybill")
     private Waybill waybill;
 
     @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_packing_list")
     private PackingList packingList;
+
+    @ManyToOne( cascade = CascadeType.PERSIST )
+    @JoinColumn(name="id_request")
+    private Request request;
 
     private LocalDate date;
     private float grossWeight;

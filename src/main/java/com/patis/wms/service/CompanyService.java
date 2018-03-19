@@ -23,5 +23,4 @@ public class CompanyService {
         companyRepository.save(company);
     }
     public void remove(Company company){ companyRepository.delete(company);}
-
 }
