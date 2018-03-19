@@ -18,7 +18,7 @@ public class Worker {
     private long id;
 
 
-    @ManyToOne( cascade = CascadeType.PERSIST )
+    @ManyToOne( cascade = CascadeType.MERGE )
     @JoinColumn(name="id_person")
     private Person person;
 

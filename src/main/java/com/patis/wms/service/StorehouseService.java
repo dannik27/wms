@@ -26,4 +26,5 @@ public class StorehouseService {
         storehouseRepository.save(storehouse);
     }
     public void remove(Storehouse storehouse){ storehouseRepository.delete(storehouse);}
+    public void remove(long id){storehouseRepository.delete(id);}
 }

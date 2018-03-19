@@ -1,30 +1,28 @@
 package com.patis.wms.controller;
 
 import com.patis.wms.dto.PersonDTO;
-import com.patis.wms.dto.RequestDTO;
-import com.patis.wms.entity.Request;
+import com.patis.wms.entity.Person;
+import com.patis.wms.entity.Product;
 import com.patis.wms.service.PersonService;
-import com.patis.wms.service.RequestService;
+import com.patis.wms.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("request")
-public class RequestController {
+@RequestMapping("product")
+public class ProductController {
 
     @Autowired
-    RequestService requestService;
+    ProductService productService;
 
     @GetMapping("/")
-    ResponseEntity<List<RequestDTO>> findAll(){
+    ResponseEntity<List<Product>> findAll(){
 
-        List<RequestDTO> result = requestService.findAll()
-                .stream().map(RequestDTO::new).collect(Collectors.toList());
+        List<Product> result = productService.findAll();
         if(result != null){
             return new ResponseEntity<>(result, HttpStatus.OK);
         }else{
@@ -34,19 +32,19 @@ public class RequestController {
     }
 
     @PostMapping("/")
-    void save(@RequestBody RequestDTO request){
+    void save(@RequestBody Product product){
 
         if(true){
-            requestService.save(request.toEntity());
+            productService.save(product);
         }
 
     }
 
-    @DeleteMapping("/{id_request}/")
-    void delete(@PathVariable("id_request") long id_request){
+    @DeleteMapping("/{id_product}/")
+    void delete(@PathVariable("id_product") long id_product){
 
         if(true){
-            requestService.remove(id_request);
+            productService.remove(id_product);
         }
 
     }

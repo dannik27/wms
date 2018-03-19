@@ -15,16 +15,22 @@ public class StorehouseCell {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @Expose
+
     @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_storehouse")
     private Storehouse storehouse;
 
-    @Expose
+
     @OneToMany( cascade = CascadeType.ALL, mappedBy="storehouseCell" )
     private List<Distribution> distributions;
 
     private String name;
     private float capacity;
+
+
+    @ManyToOne( cascade = CascadeType.PERSIST )
+    @JoinColumn(name="id_product")
+    private Product product;
+
 
 }

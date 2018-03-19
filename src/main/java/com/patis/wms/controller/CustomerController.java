@@ -1,6 +1,7 @@
 package com.patis.wms.controller;
 
 
+import com.patis.wms.dto.CustomerDTO;
 import com.patis.wms.entity.Company;
 import com.patis.wms.entity.Customer;
 import com.patis.wms.service.CompanyService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("customer")
@@ -20,9 +22,9 @@ public class CustomerController {
     CustomerService customerService;
 
     @GetMapping("/")
-    ResponseEntity<List<Customer>> findAll(){
+    ResponseEntity<List<CustomerDTO>> findAll(){
 
-        List<Customer> result = customerService.findAll();
+        List<CustomerDTO> result = customerService.findAll().stream().map(CustomerDTO::new).collect(Collectors.toList());
         if(result != null){
             return new ResponseEntity<>(result, HttpStatus.OK);
         }else{
@@ -32,19 +34,19 @@ public class CustomerController {
     }
 
     @PostMapping("/")
-    void save(@RequestBody Customer customer){
+    void save(@RequestBody CustomerDTO customer){
 
         if(true){
-            customerService.save(customer);
+            customerService.save(customer.toEntity());
         }
 
     }
 
-    @DeleteMapping("/")
-    void delete(@RequestBody Customer customer){
+    @DeleteMapping("/{id_customer}/")
+    void delete(@PathVariable("id_customer") long id_customer){
 
         if(true){
-            customerService.remove(customer);
+            customerService.remove(id_customer);
         }
 
     }

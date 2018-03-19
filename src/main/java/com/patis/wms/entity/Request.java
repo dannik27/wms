@@ -23,19 +23,19 @@ public class Request {
     @OneToMany( cascade = CascadeType.ALL, mappedBy="request" )
     private List<RequestItem> requestItems;
 
-    @ManyToOne( cascade = CascadeType.PERSIST )
+    @ManyToOne( cascade = CascadeType.MERGE )
     @JoinColumn(name="id_worker")
     private Worker author;
 
-    @ManyToOne( cascade = CascadeType.PERSIST )
+    @ManyToOne( cascade = CascadeType.MERGE )
     @JoinColumn(name="id_customer")
     private Customer customer;
 
-    @ManyToOne( cascade = CascadeType.PERSIST )
+    @ManyToOne( cascade = CascadeType.MERGE )
     @JoinColumn(name="id_storehouse_from")
     private Storehouse storehouseFrom;
 
-    @ManyToOne( cascade = CascadeType.PERSIST )
+    @ManyToOne( cascade = CascadeType.MERGE )
     @JoinColumn(name="id_storehouse_to")
     private Storehouse storehouseTo;
 

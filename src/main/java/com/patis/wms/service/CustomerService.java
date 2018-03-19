@@ -26,5 +26,6 @@ public class CustomerService {
         customerRepository.save(customer);
     }
     public void remove(Customer customer){ customerRepository.delete(customer);}
+    public void remove(long id){ customerRepository.delete(id);}
 
 }

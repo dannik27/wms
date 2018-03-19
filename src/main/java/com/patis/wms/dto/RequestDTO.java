@@ -20,56 +20,6 @@ public class RequestDTO {
     private LocalDate dateBegin;
     private CustomerDTO customer;
 
-    @Data @NoArgsConstructor
-    public class StorehouseDTO{
-        private long id;
-        private String name;
-        private String address;
-
-        public StorehouseDTO(Storehouse storehouse){
-            id = storehouse.getId();
-            name = storehouse.getName();
-            address = storehouse.getAddress();
-        }
-    }
-
-    @Data @NoArgsConstructor
-    public class CustomerDTO{
-        private long id;
-        private CompanyDTO company;
-
-        public CustomerDTO(Customer customer){
-            id = customer.getId();
-            company = new CompanyDTO(customer.getCompany());
-        }
-    }
-
-    @Data @NoArgsConstructor
-    private class CompanyDTO{
-        private long id;
-        private String name;
-
-        public CompanyDTO(Company company){
-            id = company.getId();
-            name = company.getName();
-        }
-    }
-
-    @Data
-    @NoArgsConstructor
-    public class RequestItemDTO {
-
-        private long id;
-        private int count;
-        private Product product;
-
-        public RequestItemDTO(RequestItem requestItem){
-            id = requestItem.getId();
-            count = requestItem.getCount();
-            product = requestItem.getProduct();
-        }
-    }
-
 
     public RequestDTO(Request request){
         id = request.getId();
@@ -79,5 +29,17 @@ public class RequestDTO {
         storehouseTo = new StorehouseDTO(request.getStorehouseTo());
         dateBegin = request.getDateBegin();
         customer = new CustomerDTO(request.getCustomer());
+    }
+
+    public Request toEntity(){
+        Request request = new Request();
+        request.setId(id);
+        request.setRequestItems(requestItems.stream().map(RequestItemDTO::toEntity).collect(Collectors.toList()));
+        request.setAuthor(author.toEntity());
+        if(storehouseFrom != null) {request.setStorehouseFrom(storehouseFrom.toEntity());}
+        if(storehouseTo != null) {request.setStorehouseTo(storehouseTo.toEntity());}
+        request.setDateBegin(dateBegin);
+        if(customer != null) {request.setCustomer(customer.toEntity());}
+        return request;
     }
 }
