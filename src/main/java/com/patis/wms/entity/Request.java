@@ -39,6 +39,8 @@ public class Request {
     @JoinColumn(name="id_storehouse_to")
     private Storehouse storehouseTo;
 
+    @Enumerated(EnumType.ORDINAL)
+    private OperationType operationType;
 
     private LocalDate dateBegin;
 

@@ -16,7 +16,7 @@ public class TaskService {
     @Autowired
     private TaskRepository repository;
 
-
+    public List<Task> findByWorker(long id_worker){ return repository.findByWorker_Id(id_worker);}
     public Task findOne(long id){
         return repository.findOne(id);
     }

@@ -23,5 +23,12 @@ public class Distribution {
 
     private int count;
 
+    private boolean done;
+
+
+    public Distribution complete(){
+        done = true;
+        return this;
+    }
 
 }
