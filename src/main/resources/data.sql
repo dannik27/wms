@@ -30,6 +30,7 @@ insert into person ( name, last_name, middle_name, birth_date, email)
 
 INSERT INTO worker (id_person, id_role, date_hired) VALUES (1, 2, '1995-05-15'); -- 1
 INSERT INTO worker (id_person, id_role, date_hired) VALUES (2, 2, '2002-06-18'); -- 2
+INSERT INTO worker (id_person, id_role, date_hired) VALUES (3, 2, '2002-06-18'); -- 3
 
 
 insert into product (description, name, volume) VALUES ('Фигня какая-то', 'штуцер 50х3', 2); -- 1
@@ -55,6 +56,9 @@ INSERT INTO transport_company (id_company) VALUES (3); -- 1
 INSERT INTO storehouse (name, id_customer, address) VALUES ('Склад материалов', 3, 'Где-то на белом свете'); -- 1
 INSERT INTO storehouse (name, id_customer, address) VALUES ('Склад стройматериалов', 3, 'Рядом с первым'); -- 2
 
+update worker set id_storehouse = 1 where id = 1;
+update worker set id_storehouse = 2 where id = 2;
+
 INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 40, 'A1'); -- 1
 INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 20, 'A2'); -- 2
 INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 20, 'A3'); -- 3
@@ -74,49 +78,63 @@ insert into waybill (info) values ('транспортная накладная'
 insert into packing_list (info) values ('товарная накладная');
 
 insert into transportation (id_request, id_packing_list, id_waybill, gross_weight, date_shipped, date_received)
-    values (1, 1, 1, 50, '2018-03-20 14:50', '2018-03-21 9:10');
+    values (1, 1, 1, 50, '2018-03-20 14:50', null);
 
-INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
-    VALUES (2, '2018-03-21 9:30', '2018-03-21 10:10', 0, 3); -- 1
+--INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
+--    VALUES (2, '2018-03-21 9:30', '2018-03-21 10:10', 0, 3); -- 1
 
-INSERT INTO task_item (id_product, id_task, count) VALUES (1, 1, 25);
-INSERT INTO task_item (id_product, id_task, count) VALUES (2, 1, 10);
+--INSERT INTO task_item (id_product, id_task, count) VALUES (1, 1, 25);
+--INSERT INTO task_item (id_product, id_task, count) VALUES (2, 1, 10);
 
 
-INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (1, 1, 20, true);
-INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (2, 1, 5, true);
-INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (3, 2, 10, true);
+--INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (1, 1, 20, true);
+--INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (2, 1, 5, true);
+--INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (3, 2, 10, true);
 
-update storehouse_cell set id_product = 1 where id = 1;
-update storehouse_cell set id_product = 1 where id = 2;
-update storehouse_cell set id_product = 2 where id = 3;
+--update storehouse_cell set id_product = 1 where id = 1;
+--update storehouse_cell set id_product = 1 where id = 2;
+--update storehouse_cell set id_product = 2 where id = 3;
 
 -- Перенос со склада на склад
 
 INSERT INTO request (date_begin, id_worker, id_customer, id_storehouse_from, id_storehouse_to, operation_type)
     VALUES ('2018-03-10', 2, null, 1, 2, 2);
 
-INSERT INTO request_item (count, id_product, id_request) VALUES (10, 1, 1);
+INSERT INTO request_item (count, id_product, id_request) VALUES (10, 1, 2);
 
 insert into waybill (info) values ('транспортная накладная 2');
 
 insert into packing_list (info) values ('товарная накладная 2');
 
 insert into transportation (id_request, id_packing_list, id_waybill, gross_weight, date_shipped, date_received)
-    values (2, 2, 2, 22, '2018-03-22 18:00', null);
+    values (2, 2, 2, 22, null, null);
 
-INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
-    VALUES (1, null, null, 1, 3); -- 2
-INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
-    VALUES (null, null, null, 0, 1); -- 3
+--INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
+--    VALUES (1, null, null, 1, 3); -- 2
+--INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
+--    VALUES (null, null, null, 0, 3); -- 3
 
-INSERT INTO task_item (id_product, id_task, count) VALUES (1, 2, 10); -- 3
+--INSERT INTO task_item (id_product, id_task, count) VALUES (1, 2, 10); -- 3
 
-INSERT INTO task_item (id_product, id_task, count) VALUES (1, 3, 10); -- 4
+--INSERT INTO task_item (id_product, id_task, count) VALUES (1, 3, 10); -- 4
 
-INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (1, 3, -10, true);
-INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (4, 4, 10, false);
+--INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (1, 3, -10, true);
+--INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (4, 4, 10, true);
 
-update storehouse_cell set id_product = 1 where id = 4;
+--update storehouse_cell set id_product = 1 where id = 4;
+
+-- Отгрузка со склада
+
+INSERT INTO request (date_begin, id_worker, id_customer, id_storehouse_from, id_storehouse_to, operation_type)
+    VALUES ('2018-03-11', 2, 2, 1, null, 1);
+
+INSERT INTO request_item (count, id_product, id_request) VALUES (12, 1, 3);
+
+insert into waybill (info) values ('транспортная накладная 3');
+
+insert into packing_list (info) values ('товарная накладная 3');
+
+insert into transportation (id_request, id_packing_list, id_waybill, gross_weight, date_shipped, date_received)
+    values (3, 3, 3, 30, null, null);
 
 

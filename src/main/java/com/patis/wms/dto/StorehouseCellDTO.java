@@ -21,11 +21,7 @@ public class StorehouseCellDTO{
         name = storehouseCell.getName();
         capacity = storehouseCell.getCapacity();
         product = storehouseCell.getProduct();
-        if(product != null) {
-            storehouseCell.getDistributions().stream()
-                    .filter(distribution -> distribution.getTaskItem().getProduct() == product)
-                    .forEach(distribution -> busy += distribution.getCount() * product.getVolume());
-        }
+        busy = storehouseCell.getBusy();
 
 
     }

@@ -33,4 +33,15 @@ public class StorehouseCell {
     private Product product;
 
 
+
+    public float getBusy(){
+        if(product != null) {
+            return distributions.stream()
+                    .filter(distribution -> distribution.getTaskItem().getProduct() == product)
+                    .map(distribution -> distribution.getCount() * product.getVolume())
+                    .reduce((a, b) -> a + b).orElse(0f);
+        }
+        return 0;
+    }
+
 }

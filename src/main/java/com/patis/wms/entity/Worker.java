@@ -27,11 +27,27 @@ public class Worker {
     @JoinColumn(name="id_role")
     private Role role;
 
+    @ManyToOne( cascade = CascadeType.PERSIST )
+    @JoinColumn(name="id_storehouse")
+    private Storehouse storehouse;
+
+    @OneToMany( cascade = CascadeType.ALL, mappedBy="worker" )
+    private List<Task> tasks;
+
 
     private LocalDate dateHired;
 
 
     private LocalDate dateFired;
+
+
+    public int getCurrentTaskCount(){
+        return (int) tasks.stream().filter(task -> task.getTaskStatus() != TaskStatus.DONE)
+                .flatMap(task -> task.getTaskItems().stream())
+                .flatMap(taskItem -> taskItem.getDistributions().stream())
+                .filter(distribution -> ! distribution.isDone())
+                .count();
+    }
 
 
 

@@ -18,6 +18,9 @@ public class Storehouse {
     @OneToMany( cascade = CascadeType.ALL, mappedBy="storehouse" )
     private List<StorehouseCell> storehouseCells;
 
+    @OneToMany( cascade = CascadeType.ALL, mappedBy="storehouse" )
+    private List<Worker> workers;
+
     @Expose
     @ManyToOne( cascade = CascadeType.PERSIST )
     @JoinColumn(name="id_customer")

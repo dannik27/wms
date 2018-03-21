@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 @Entity
 @Data @NoArgsConstructor
@@ -30,5 +31,8 @@ public class Transportation {
     private LocalDateTime dateShipped;
     private LocalDateTime dateReceived;
     private float grossWeight;
+
+
+
 
 }
