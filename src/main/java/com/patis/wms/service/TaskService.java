@@ -21,7 +21,7 @@ public class TaskService {
         return repository.findOne(id);
     }
     public List<Task> findAll() {
-        return (List<Task>) repository.findAll();
+        return repository.findAll();
     }
 
     public void save(Task task) {

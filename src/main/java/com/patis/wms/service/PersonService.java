@@ -18,9 +18,7 @@ public class PersonService {
     private PersonRepository personRepository;
 
     public List<Person> findAll(){
-        //return StreamSupport.stream(personRepository.findAll().spliterator(),false)
-        //        .map(PersonDTO::new).collect(Collectors.toList());
-        return (List<Person>) personRepository.findAll();
+        return personRepository.findAll();
     }
     public void save(Person person){
         personRepository.save(person);

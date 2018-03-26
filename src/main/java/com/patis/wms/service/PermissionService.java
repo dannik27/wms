@@ -14,7 +14,7 @@ public class PermissionService {
     PermissionRepository permissionRepository;
 
     public List<Permission> findAll(){
-        return (List<Permission>) permissionRepository.findAll();
+        return permissionRepository.findAll();
     }
 
     public Permission findOne(long id){

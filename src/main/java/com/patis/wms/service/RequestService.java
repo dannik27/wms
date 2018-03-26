@@ -24,9 +24,7 @@ public class RequestService {
         return repository.findOne(id);
     }
     public List<Request> findAll() {
-        return (List<Request>) repository.findAll();
-        //return  StreamSupport.stream(repository.findAll().spliterator(), false)
-        //        .map(RequestDTO::new).collect(Collectors.toList());
+        return repository.findAll();
 
     }
 

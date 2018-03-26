@@ -20,7 +20,7 @@ public class StorehouseService {
         return storehouseRepository.findOne(id);
     }
     public List<Storehouse> findAll(){
-        return (List<Storehouse>) storehouseRepository.findAll();
+        return storehouseRepository.findAll();
     }
     public void save(Storehouse storehouse){
         storehouseRepository.save(storehouse);

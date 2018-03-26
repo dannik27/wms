@@ -21,7 +21,7 @@ public class TransportationService {
         return repository.findOne(id);
     }
     public List<Transportation> findAll() {
-        return (List<Transportation>) repository.findAll();
+        return repository.findAll();
     }
 
     public void save(Transportation transportation) {

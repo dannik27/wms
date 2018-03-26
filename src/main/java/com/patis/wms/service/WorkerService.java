@@ -24,9 +24,7 @@ public class WorkerService {
     }
     public List<Worker> findAll() {
 
-       // return StreamSupport.stream(repository.findAll().spliterator(), false)
-        //        .map(WorkerDTO::new).collect(Collectors.toList());
-        return (List<Worker>) repository.findAll();
+        return repository.findAll();
     }
 
     public void save(Worker worker) {

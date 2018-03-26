@@ -17,7 +17,7 @@ public class CompanyService {
     private CompanyRepository companyRepository;
 
     public List<Company> findAll(){
-        return (List<Company>) companyRepository.findAll();
+        return companyRepository.findAll();
     }
     public void save(Company company){
         companyRepository.save(company);

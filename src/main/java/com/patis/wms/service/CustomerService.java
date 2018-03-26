@@ -20,7 +20,7 @@ public class CustomerService {
         return customerRepository.findOne(id);
     }
     public List<Customer> findAll(){
-        return (List<Customer>) customerRepository.findAll();
+        return customerRepository.findAll();
     }
     public void save(Customer customer){
         customerRepository.save(customer);

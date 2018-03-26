@@ -17,7 +17,7 @@ public class DistributionService {
     private DistributionRepository distributionRepository;
 
     public List<Distribution> findAll(){
-        return (List<Distribution>) distributionRepository.findAll();
+        return distributionRepository.findAll();
     }
     public void save(Distribution distribution){
         distributionRepository.save(distribution);

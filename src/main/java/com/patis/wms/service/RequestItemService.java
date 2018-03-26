@@ -23,7 +23,7 @@ public class RequestItemService {
         return repository.findOne(id);
     }
     public List<RequestItem> findAll() {
-        return (List<RequestItem>) repository.findAll();
+        return repository.findAll();
     }
 
     public void save(RequestItem requestItem) {
