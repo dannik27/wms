@@ -3,6 +3,7 @@ package com.patis.wms.controller;
 import com.patis.wms.dto.PersonDTO;
 import com.patis.wms.entity.Person;
 import com.patis.wms.service.PersonService;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,10 @@ public class PersonController {
     PersonService personService;
 
     @GetMapping({"/", " "})
-    ResponseEntity<List<Person>> findAll(){
+    ResponseEntity<List<PersonDTO>> findAll(){
 
-        List<Person> result = personService.findAll();
+        List<PersonDTO> result = personService.findAll().stream().map(PersonDTO::new).collect(
+            Collectors.toList());
         if(result != null){
             return new ResponseEntity<>(result, HttpStatus.OK);
         }else{

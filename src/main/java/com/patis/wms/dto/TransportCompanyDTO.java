@@ -10,18 +10,18 @@ import lombok.NoArgsConstructor;
 public class TransportCompanyDTO {
 
     private long id;
-    private Company company;
+    private CompanyDTO company;
 
 
     public TransportCompanyDTO(TransportCompany transportCompany){
         id = transportCompany.getId();
-        company = transportCompany.getCompany();
+        company = new CompanyDTO(transportCompany.getCompany());
     }
 
     public TransportCompany toEntity(){
         TransportCompany transportCompany = new TransportCompany();
         transportCompany.setId(id);
-        transportCompany.setCompany(company);
+        transportCompany.setCompany(company.toEntity());
         return transportCompany;
     }
 

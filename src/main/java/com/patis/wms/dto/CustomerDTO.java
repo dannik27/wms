@@ -11,18 +11,18 @@ public class CustomerDTO {
 
 
     private long id;
-    private Company company;
+    private CompanyDTO company;
 
 
     public CustomerDTO(Customer customer){
         id = customer.getId();
-        company = customer.getCompany();
+        company = new CompanyDTO(customer.getCompany());
     }
 
     public Customer toEntity(){
         Customer customer = new Customer();
         customer.setId(id);
-        customer.setCompany(company);
+        customer.setCompany(company.toEntity());
         return customer;
     }
 }

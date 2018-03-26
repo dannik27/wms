@@ -1,9 +1,11 @@
 package com.patis.wms.controller;
 
 
+import com.patis.wms.dto.CompanyDTO;
 import com.patis.wms.entity.Company;
 import com.patis.wms.entity.Person;
 import com.patis.wms.service.CompanyService;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +21,10 @@ public class CompanyController {
     CompanyService companyService;
 
     @GetMapping("/")
-    ResponseEntity<List<Company>> findAll(){
+    ResponseEntity<List<CompanyDTO>> findAll(){
 
-        List<Company> result = companyService.findAll();
+        List<CompanyDTO> result = companyService.findAll().stream().map(CompanyDTO::new).collect(
+            Collectors.toList());
         if(result != null){
             return new ResponseEntity<>(result, HttpStatus.OK);
         }else{
@@ -31,19 +34,19 @@ public class CompanyController {
     }
 
     @PostMapping("/")
-    void save(@RequestBody Company company){
+    void save(@RequestBody CompanyDTO company){
 
         if(true){
-            companyService.save(company);
+            companyService.save(company.toEntity());
         }
 
     }
 
-    @DeleteMapping("/")
-    void delete(@RequestBody Company company){
+    @DeleteMapping("/{id_company}")
+    void delete(@PathVariable long id_company){
 
         if(true){
-            companyService.remove(company);
+            companyService.remove(id_company);
         }
 
     }
