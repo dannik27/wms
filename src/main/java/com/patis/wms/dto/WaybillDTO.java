@@ -15,14 +15,19 @@ public class WaybillDTO {
     public WaybillDTO(Waybill waybill){
         id = waybill.getId();
         info = waybill.getInfo();
-        transportCompany = new TransportCompanyDTO(waybill.getTransportCompany());
+        if(waybill.getTransportCompany() != null){
+            transportCompany = new TransportCompanyDTO(waybill.getTransportCompany());
+        }
+
     }
 
     public Waybill toEntity(){
         Waybill waybill = new Waybill();
         waybill.setId(id);
         waybill.setInfo(info);
-        waybill.setTransportCompany(transportCompany.toEntity());
+        if(transportCompany != null){
+            waybill.setTransportCompany(transportCompany.toEntity());
+        }
         return waybill;
     }
 

@@ -4,6 +4,7 @@ import com.patis.wms.dto.TaskDTO;
 import com.patis.wms.dto.WorkerDTO;
 import com.patis.wms.entity.*;
 import com.patis.wms.service.*;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,17 @@ public class TaskController {
 
     }
 
+    @PostMapping("/{id_task}/start/")
+    void putDistributionInWork(
+        @PathVariable("id_task") long id_task
+    ){
+
+        Task task = taskService.findOne(id_task);
+        task.setTaskStatus(TaskStatus.IN_WORK);
+        taskService.save(task);
+
+    }
+
     @PostMapping("/{id_task}/complete/{id_distribution}/")
     void completedistribution(
             @PathVariable("id_task") long id_task,
@@ -71,11 +83,14 @@ public class TaskController {
 
         if (remained == 0){
             task.setTaskStatus(TaskStatus.DONE);
+            task.setTimeEnd(LocalDateTime.now());
         }
 
         taskService.save(task);
 
     }
+
+
 
 
 

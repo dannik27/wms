@@ -46,23 +46,26 @@ public class TaskManagerService {
 
             request.getRequestItems().stream()
                     .map(TaskItem::new)
-                    .forEach(taskItem -> task.getTaskItems().add(taskItem));
+                    .forEach(taskItem -> {
+                        task.getTaskItems().add(taskItem);
+                        taskItem.setTask(task);
+                    });
 
             if( ! checkTaskImplementability(task) ){
                 throw new StorehouseException("Недостаточно на складе");
             }else{
 
                 for(TaskItem taskItem : task.getTaskItems()){
-                    taskItem.setDistributions(new ArrayList<>());
+
                     countToGet = taskItem.getCount();
                     request.getStorehouseFrom().getStorehouseCells().stream()
                             .filter(storehouseCell -> storehouseCell.getProduct() == taskItem.getProduct())
                             .forEach(storehouseCell -> {
-                                int freeSpaceCount = (int)((storehouseCell.getCapacity() - storehouseCell.getBusy()) / storehouseCell.getProduct().getVolume());
+                                int availableCount = (int)(storehouseCell.getBusy() / storehouseCell.getProduct().getVolume());
 
-                                if(freeSpaceCount <= countToGet){
-                                    taskItem.getDistributions().add(new Distribution(storehouseCell, taskItem,  (-1) * freeSpaceCount));
-                                    countToGet -= freeSpaceCount;
+                                if(availableCount <= countToGet){
+                                    taskItem.getDistributions().add(new Distribution(storehouseCell, taskItem,  (-1) * availableCount));
+                                    countToGet -= availableCount;
                                     storehouseCell.setProduct(null);
 
                                 }else if(countToGet != 0){
@@ -105,9 +108,13 @@ public class TaskManagerService {
 
             request.getRequestItems().stream()
                     .map(TaskItem::new)
-                    .forEach(taskItem -> task.getTaskItems().add(taskItem));
+                    .forEach(taskItem -> {
+                        task.getTaskItems().add(taskItem);
+                        taskItem.setTask(task);
+                    });
 
-            fillStorehouse(task)
+            fillStorehouse(task).stream()
+                    .filter(cellContainer -> cellContainer.countNew != 0)
                     .forEach(cellContainer -> {
                         cellContainer.taskItem.getDistributions().add(new Distribution(cellContainer.storehouseCell, cellContainer.taskItem, cellContainer.countNew));
                         cellContainer.storehouseCell.setProduct(cellContainer.taskItem.getProduct());

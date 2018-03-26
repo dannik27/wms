@@ -69,12 +69,12 @@ public class TransportationController {
     @PostMapping("/{id_transportation}/receive")
     String receiveTransportation(
             @PathVariable("id_transportation") long id_transportation,
-            @RequestBody LocalDateTime dateShipped
+            @RequestBody LocalDateTime dataReceived
     ){
 
         Transportation transportation = transportationService.findOne(id_transportation);
         try {
-            taskManagerService.transportationReceived(transportation, dateShipped);
+            taskManagerService.transportationReceived(transportation, dataReceived);
         } catch (StorehouseException e) {
             return e.getMessage();
         }

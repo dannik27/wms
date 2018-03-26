@@ -59,11 +59,23 @@ INSERT INTO storehouse (name, id_customer, address) VALUES ('Склад стро
 update worker set id_storehouse = 1 where id = 1;
 update worker set id_storehouse = 2 where id = 2;
 
-INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 40, 'A1'); -- 1
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 20, 'A1'); -- 1
 INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 20, 'A2'); -- 2
 INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 20, 'A3'); -- 3
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 20, 'A4'); -- 4
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 30, 'AA1'); -- 5
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 30, 'AA2'); -- 6
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 30, 'AA3'); -- 7
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 30, 'AA4'); -- 8
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 30, 'AA5'); -- 9
 
-INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (2, 50, 'B1'); -- 4
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (2, 50, 'B1'); -- 10
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (2, 50, 'B2'); -- 11
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (2, 50, 'B3'); -- 12
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (2, 10, 'BA1'); -- 13
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (2, 10, 'BA2'); -- 14
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (2, 10, 'BA3'); -- 15
+INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (2, 40, 'BB1'); -- 16
 
 -- Поступление на склад
 
@@ -73,7 +85,7 @@ INSERT INTO request (date_begin, id_worker, id_customer, id_storehouse_from, id_
 INSERT INTO request_item (count, id_product, id_request) VALUES (25, 1, 1);
 INSERT INTO request_item (count, id_product, id_request) VALUES (10, 2, 1);
 
-insert into waybill (info) values ('транспортная накладная');
+insert into waybill (info, id_transport_company) values ('транспортная накладная', 1);
 
 insert into packing_list (info) values ('товарная накладная');
 
@@ -102,7 +114,7 @@ INSERT INTO request (date_begin, id_worker, id_customer, id_storehouse_from, id_
 
 INSERT INTO request_item (count, id_product, id_request) VALUES (10, 1, 2);
 
-insert into waybill (info) values ('транспортная накладная 2');
+insert into waybill (info, id_transport_company) values ('транспортная накладная 2', 1);
 
 insert into packing_list (info) values ('товарная накладная 2');
 
@@ -130,7 +142,7 @@ INSERT INTO request (date_begin, id_worker, id_customer, id_storehouse_from, id_
 
 INSERT INTO request_item (count, id_product, id_request) VALUES (12, 1, 3);
 
-insert into waybill (info) values ('транспортная накладная 3');
+insert into waybill (info, id_transport_company) values ('транспортная накладная 3', 1);
 
 insert into packing_list (info) values ('товарная накладная 3');
 
