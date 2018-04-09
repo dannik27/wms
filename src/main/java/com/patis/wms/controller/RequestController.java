@@ -60,7 +60,7 @@ public class RequestController {
     @PostMapping("/")
     long save(@RequestBody RequestCreateDTO requestDTO){
 
-        Request request = requestService.save(requestDTO.toEntity(workerService, storehouseService, customerService));
+        Request request = requestService.save(requestDTO.toEntity(workerService, storehouseService, customerService, productService));
         return request.getId();
 
     }

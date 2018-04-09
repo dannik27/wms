@@ -3,12 +3,13 @@ package com.patis.wms.dto.create;
 import com.patis.wms.entity.Product;
 import com.patis.wms.entity.RequestItem;
 import com.patis.wms.service.ProductService;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class RequestItemCreateDTO {
+public class RequestItemCreateDTO implements Serializable {
 
     private long id;
     private int count;

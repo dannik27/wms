@@ -51,7 +51,7 @@ public class TaskManagerService {
                         taskItem.setTask(task);
                     });
 
-            if( ! checkTaskImplementability(task) ){
+            if( ! checkProductAvailability(task) ){
                 throw new StorehouseException("Недостаточно на складе");
             }else{
 
@@ -113,7 +113,7 @@ public class TaskManagerService {
                         taskItem.setTask(task);
                     });
 
-            fillStorehouse(task).stream()
+            fillStorehouse(task, request.getStorehouseTo()).stream()
                     .filter(cellContainer -> cellContainer.countNew != 0)
                     .forEach(cellContainer -> {
                         cellContainer.taskItem.getDistributions().add(new Distribution(cellContainer.storehouseCell, cellContainer.taskItem, cellContainer.countNew));
@@ -140,14 +140,18 @@ public class TaskManagerService {
 
     }
 
-    private boolean checkTaskImplementability(Task task){
+    public boolean checkProductAvailability(Task task){
 
         return task.getTaskItems().stream()
                 .noneMatch(taskItem -> taskItem.getCount() > productCountInStorehouse(task.getTransportation().getRequest().getStorehouseFrom(), taskItem.getProduct()));
     }
 
-    public List<CellContainer> fillStorehouse(Task inputTask) throws StorehouseException {
-        Storehouse storehouse = inputTask.getTransportation().getRequest().getStorehouseTo();
+    public boolean checkFreeSpace(Task task){
+        return true;
+    }
+
+    public List<CellContainer> fillStorehouse(Task inputTask, Storehouse storehouse) throws StorehouseException {
+
 
         Comparator<Container> comparator = Comparator.comparingInt(o -> o.count);
 

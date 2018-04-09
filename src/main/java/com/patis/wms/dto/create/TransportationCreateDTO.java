@@ -6,12 +6,13 @@ import com.patis.wms.dto.WaybillDTO;
 import com.patis.wms.entity.Transportation;
 import com.patis.wms.service.RequestService;
 import com.patis.wms.service.TaskService;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor
-public class TransportationCreateDTO {
+public class TransportationCreateDTO implements Serializable {
 
     private long id;
     private float grossWeight;
@@ -30,8 +31,8 @@ public class TransportationCreateDTO {
         transportation.setDateShipped(dateShipped);
         transportation.setDateReceived(dateReceived);
         transportation.setRequest(requestService.findOne(id_request));
-        transportation.setWaybill(waybill.toEntity());
-        transportation.setPackingList(packingList.toEntity());
+        if(waybill != null) transportation.setWaybill(waybill.toEntity());
+        if(packingList != null) transportation.setPackingList(packingList.toEntity());
         return transportation;
     }
 
