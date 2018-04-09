@@ -3,7 +3,9 @@ package com.patis.wms.controller;
 import com.patis.wms.StorehouseException;
 import com.patis.wms.dto.StorehouseDTO;
 import com.patis.wms.dto.TransportationDTO;
+import com.patis.wms.dto.create.TransportationCreateDTO;
 import com.patis.wms.entity.Transportation;
+import com.patis.wms.service.RequestService;
 import com.patis.wms.service.TaskManagerService;
 import com.patis.wms.service.TaskService;
 import com.patis.wms.service.TransportationService;
@@ -29,6 +31,9 @@ public class TransportationController {
     @Autowired
     TaskService taskService;
 
+    @Autowired
+    RequestService requestService;
+
     @GetMapping("/")
     ResponseEntity<List<TransportationDTO>> findAll(){
 
@@ -42,11 +47,10 @@ public class TransportationController {
     }
 
     @PostMapping("/")
-    void save(@RequestBody TransportationDTO transportation){
+    long save(@RequestBody TransportationCreateDTO transportationDTO){
 
-        if(true){
-            transportationService.save(transportation.toEntity(taskService));
-        }
+        Transportation transportation = transportationService.save(transportationDTO.toEntity(requestService));
+        return transportation.getId();
 
     }
 

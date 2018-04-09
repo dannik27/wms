@@ -24,8 +24,8 @@ public class TransportationService {
         return repository.findAll();
     }
 
-    public void save(Transportation transportation) {
-        repository.save(transportation);
+    public Transportation save(Transportation transportation) {
+        return repository.save(transportation);
     }
     public void remove(Transportation transportation) {
         repository.delete(transportation);

@@ -20,8 +20,11 @@ public class PersonService {
     public List<Person> findAll(){
         return personRepository.findAll();
     }
-    public void save(Person person){
-        personRepository.save(person);
+    public Person findOne(long id) {
+        return personRepository.findOne(id);
+    }
+    public Person save(Person person){
+        return personRepository.save(person);
     }
     public void remove(Person person){ personRepository.delete(person);}
     public void remove(long id){ personRepository.delete(id);}

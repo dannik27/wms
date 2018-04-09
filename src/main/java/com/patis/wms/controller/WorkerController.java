@@ -1,6 +1,7 @@
 package com.patis.wms.controller;
 
 import com.patis.wms.dto.WorkerDTO;
+import com.patis.wms.dto.create.WorkerCreateDTO;
 import com.patis.wms.entity.Role;
 import com.patis.wms.entity.Worker;
 import com.patis.wms.service.PersonService;
@@ -39,11 +40,10 @@ public class WorkerController {
     }
 
     @PostMapping("/")
-    void save(@RequestBody WorkerDTO worker){
+    long save(@RequestBody WorkerCreateDTO workerDTO){
 
-        if(true){
-            workerService.save(worker.toEntity());
-        }
+        Worker worker = workerService.save(workerDTO.toEntity(roleService, personService));
+        return worker.getId();
     }
 
     @DeleteMapping("/{id_worker}/")

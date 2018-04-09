@@ -2,6 +2,7 @@ package com.patis.wms.controller;
 
 
 import com.patis.wms.dto.CustomerDTO;
+import com.patis.wms.dto.create.CustomerCreateDTO;
 import com.patis.wms.entity.Company;
 import com.patis.wms.entity.Customer;
 import com.patis.wms.service.CompanyService;
@@ -21,6 +22,9 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    CompanyService companyService;
+
     @GetMapping("/")
     ResponseEntity<List<CustomerDTO>> findAll(){
 
@@ -34,11 +38,10 @@ public class CustomerController {
     }
 
     @PostMapping("/")
-    void save(@RequestBody CustomerDTO customer){
+    long save(@RequestBody CustomerCreateDTO customerDTO){
 
-        if(true){
-            customerService.save(customer.toEntity());
-        }
+        Customer customer = customerService.save(customerDTO.toEntity(companyService));
+        return customer.getId();
 
     }
 

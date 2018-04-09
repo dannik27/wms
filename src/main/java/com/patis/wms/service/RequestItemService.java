@@ -26,8 +26,8 @@ public class RequestItemService {
         return repository.findAll();
     }
 
-    public void save(RequestItem requestItem) {
-        repository.save(requestItem);
+    public RequestItem save(RequestItem requestItem) {
+        return repository.save(requestItem);
     }
     public void remove(RequestItem requestItem) {
         repository.delete(requestItem);

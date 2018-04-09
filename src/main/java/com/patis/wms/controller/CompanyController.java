@@ -2,9 +2,11 @@ package com.patis.wms.controller;
 
 
 import com.patis.wms.dto.CompanyDTO;
+import com.patis.wms.dto.create.CompanyCreateDTO;
 import com.patis.wms.entity.Company;
 import com.patis.wms.entity.Person;
 import com.patis.wms.service.CompanyService;
+import com.patis.wms.service.PersonService;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,9 @@ public class CompanyController {
     @Autowired
     CompanyService companyService;
 
+    @Autowired
+    PersonService personService;
+
     @GetMapping("/")
     ResponseEntity<List<CompanyDTO>> findAll(){
 
@@ -34,11 +39,10 @@ public class CompanyController {
     }
 
     @PostMapping("/")
-    void save(@RequestBody CompanyDTO company){
+    long save(@RequestBody CompanyCreateDTO companyDTO){
 
-        if(true){
-            companyService.save(company.toEntity());
-        }
+        Company company = companyService.save(companyDTO.toEntity(personService));
+        return company.getId();
 
     }
 

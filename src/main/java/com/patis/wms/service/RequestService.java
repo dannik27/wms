@@ -28,8 +28,8 @@ public class RequestService {
 
     }
 
-    public void save(Request request) {
-        repository.save(request);
+    public Request save(Request request) {
+        return repository.save(request);
     }
     public void remove(Request request) {
         repository.delete(request);

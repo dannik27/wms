@@ -27,8 +27,8 @@ public class WorkerService {
         return repository.findAll();
     }
 
-    public void save(Worker worker) {
-        repository.save(worker);
+    public Worker save(Worker worker) {
+        return repository.save(worker);
     }
     public void remove(Worker worker) {
         repository.delete(worker);

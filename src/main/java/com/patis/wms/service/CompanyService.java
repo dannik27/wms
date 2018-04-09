@@ -19,8 +19,11 @@ public class CompanyService {
     public List<Company> findAll(){
         return companyRepository.findAll();
     }
-    public void save(Company company){
-        companyRepository.save(company);
+    public Company findOne(long id){
+        return companyRepository.findOne(id);
+    }
+    public Company save(Company company){
+        return companyRepository.save(company);
     }
     public void remove(Company company){ companyRepository.delete(company);}
     public void remove(long id){ companyRepository.delete(id);}

@@ -1,6 +1,7 @@
 package com.patis.wms.controller;
 
 import com.patis.wms.dto.PersonDTO;
+import com.patis.wms.dto.create.PersonCreateDTO;
 import com.patis.wms.entity.Person;
 import com.patis.wms.service.PersonService;
 import java.util.stream.Collectors;
@@ -32,11 +33,10 @@ public class PersonController {
     }
 
     @PostMapping("/")
-    void save(@RequestBody PersonDTO person){
+    long save(@RequestBody PersonCreateDTO personDTO){
 
-        if(true){
-            personService.save(person.toEntity());
-        }
+        Person person = personService.save(personDTO.toEntity());
+        return person.getId();
 
     }
 

@@ -22,8 +22,8 @@ public class CustomerService {
     public List<Customer> findAll(){
         return customerRepository.findAll();
     }
-    public void save(Customer customer){
-        customerRepository.save(customer);
+    public Customer save(Customer customer){
+        return customerRepository.save(customer);
     }
     public void remove(Customer customer){ customerRepository.delete(customer);}
     public void remove(long id){ customerRepository.delete(id);}

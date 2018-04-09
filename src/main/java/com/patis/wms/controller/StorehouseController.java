@@ -3,10 +3,13 @@ package com.patis.wms.controller;
 
 import com.patis.wms.dto.StorehouseCellDTO;
 import com.patis.wms.dto.StorehouseDTO;
+import com.patis.wms.dto.create.StorehouseCellCreateDTO;
+import com.patis.wms.dto.create.StorehouseCreateDTO;
 import com.patis.wms.entity.Customer;
 import com.patis.wms.entity.Storehouse;
 import com.patis.wms.entity.StorehouseCell;
 import com.patis.wms.service.CustomerService;
+import com.patis.wms.service.ProductService;
 import com.patis.wms.service.StorehouseService;
 import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,9 @@ public class StorehouseController {
 
     @Autowired
     StorehouseService storehouseService;
+
+    @Autowired
+    ProductService productService;
 
     @GetMapping("/")
     ResponseEntity<List<StorehouseDTO>> findAll(){
@@ -52,11 +58,10 @@ public class StorehouseController {
     }
 
     @PostMapping("/")
-    void save(@RequestBody StorehouseDTO storehouse){
+    long save(@RequestBody StorehouseCreateDTO storehouseDTO){
 
-        if(true){
-            storehouseService.save(storehouse.toEntity());
-        }
+        Storehouse storehouse = storehouseService.save(storehouseDTO.toEntity());
+        return storehouse.getId();
 
     }
 
@@ -74,11 +79,11 @@ public class StorehouseController {
     @PostMapping("/{id_storehouse}/cell/")
     ResponseEntity<StorehouseDTO> addCell(
             @PathVariable("id_storehouse") long id_storehouse,
-            @RequestBody StorehouseCellDTO storehouseCellDTO
+            @RequestBody StorehouseCellCreateDTO storehouseCellDTO
     ){
 
         Storehouse storehouse = storehouseService.findOne(id_storehouse);
-        StorehouseCell storehouseCell = storehouseCellDTO.toEntity();
+        StorehouseCell storehouseCell = storehouseCellDTO.toEntity(productService);
 
         if(storehouse != null){
             storehouse.getStorehouseCells().add(storehouseCell);

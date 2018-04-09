@@ -34,12 +34,12 @@ public class Worker {
     @OneToMany( cascade = CascadeType.ALL, mappedBy="worker" )
     private List<Task> tasks;
 
-
     private LocalDate dateHired;
-
 
     private LocalDate dateFired;
 
+    private String login;
+    private String password;
 
     public int getCurrentTaskCount(){
         return (int) tasks.stream().filter(task -> task.getTaskStatus() != TaskStatus.DONE)

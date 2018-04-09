@@ -3,11 +3,17 @@ package com.patis.wms.controller;
 import com.patis.wms.dto.PersonDTO;
 import com.patis.wms.dto.RequestDTO;
 import com.patis.wms.dto.RequestItemDTO;
+import com.patis.wms.dto.create.RequestCreateDTO;
+import com.patis.wms.dto.create.RequestItemCreateDTO;
 import com.patis.wms.entity.Request;
 import com.patis.wms.entity.RequestItem;
+import com.patis.wms.service.CustomerService;
 import com.patis.wms.service.PersonService;
+import com.patis.wms.service.ProductService;
 import com.patis.wms.service.RequestItemService;
 import com.patis.wms.service.RequestService;
+import com.patis.wms.service.StorehouseService;
+import com.patis.wms.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +32,18 @@ public class RequestController {
     @Autowired
     RequestItemService requestItemService;
 
+    @Autowired
+    StorehouseService storehouseService;
+
+    @Autowired
+    CustomerService customerService;
+
+    @Autowired
+    WorkerService workerService;
+
+    @Autowired
+    ProductService productService;
+
     @GetMapping("/")
     ResponseEntity<List<RequestDTO>> findAll(){
 
@@ -40,11 +58,11 @@ public class RequestController {
     }
 
     @PostMapping("/")
-    void save(@RequestBody RequestDTO request){
+    long save(@RequestBody RequestCreateDTO requestDTO){
 
-        if(true){
-            requestService.save(request.toEntity());
-        }
+        Request request = requestService.save(requestDTO.toEntity(workerService, storehouseService, customerService));
+        return request.getId();
+
     }
 
     @DeleteMapping("/{id_request}/")
@@ -73,12 +91,12 @@ public class RequestController {
     @PostMapping("/{id_request}/item/")
     ResponseEntity<RequestItemDTO> addItem(
             @PathVariable("id_request") long id_request,
-            @RequestBody RequestItemDTO requestItemDTO
+            @RequestBody RequestItemCreateDTO requestItemDTO
     ){
 
 
         Request request = requestService.findOne(id_request);
-        RequestItem requestItem = requestItemDTO.toEntity();
+        RequestItem requestItem = requestItemDTO.toEntity(productService);
 
         if(request != null){
             request.getRequestItems().add(requestItem);

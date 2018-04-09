@@ -1,0 +1,39 @@
+package com.patis.wms.dto.create;
+
+import com.patis.wms.dto.PackingListDTO;
+import com.patis.wms.dto.RequestDTO;
+import com.patis.wms.dto.WaybillDTO;
+import com.patis.wms.entity.Transportation;
+import com.patis.wms.service.RequestService;
+import com.patis.wms.service.TaskService;
+import java.time.LocalDateTime;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data @NoArgsConstructor
+public class TransportationCreateDTO {
+
+    private long id;
+    private float grossWeight;
+    private LocalDateTime dateShipped;
+    private LocalDateTime dateReceived;
+    private long id_request;
+
+    private WaybillDTO waybill;
+    private PackingListDTO packingList;
+
+
+    public Transportation toEntity(RequestService requestService){
+        Transportation transportation = new Transportation();
+        transportation.setId(id);
+        transportation.setGrossWeight(grossWeight);
+        transportation.setDateShipped(dateShipped);
+        transportation.setDateReceived(dateReceived);
+        transportation.setRequest(requestService.findOne(id_request));
+        transportation.setWaybill(waybill.toEntity());
+        transportation.setPackingList(packingList.toEntity());
+        return transportation;
+    }
+
+
+}

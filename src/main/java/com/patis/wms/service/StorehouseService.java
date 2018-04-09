@@ -22,8 +22,8 @@ public class StorehouseService {
     public List<Storehouse> findAll(){
         return storehouseRepository.findAll();
     }
-    public void save(Storehouse storehouse){
-        storehouseRepository.save(storehouse);
+    public Storehouse save(Storehouse storehouse){
+        return storehouseRepository.save(storehouse);
     }
     public void remove(Storehouse storehouse){ storehouseRepository.delete(storehouse);}
     public void remove(long id){storehouseRepository.delete(id);}
