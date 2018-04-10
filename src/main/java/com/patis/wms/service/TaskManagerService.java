@@ -169,7 +169,7 @@ public class TaskManagerService {
         while (tasks.size() > 0){
 
             TaskContainer task = tasks.get(0);
-            CellContainer lastCell = cells.get(cells.size() - 1 - iteration);
+            CellContainer lastCell = (iteration == cells.size()) ? cells.get(0) : cells.get(cells.size() - 1 - iteration);
             CellContainer curCell;
 
             curCell = cells.stream()
