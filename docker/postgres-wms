@@ -1,0 +1,15 @@
+version: '3'
+services:
+  postgres-wms:
+    image: postgres:alpine
+    volumes:
+      - wms-data:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: wms
+      POSTGRES_PASSWORD: wms
+      POSTGRES_DB: wms
+
+volumes:
+  wms-data:

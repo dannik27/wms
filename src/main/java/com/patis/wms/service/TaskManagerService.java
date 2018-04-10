@@ -165,11 +165,11 @@ public class TaskManagerService {
 
         cells.sort(comparator);
         tasks.sort(comparator.reversed());
-
+        int iteration = 0;
         while (tasks.size() > 0){
 
             TaskContainer task = tasks.get(0);
-            CellContainer lastCell = cells.get(cells.size() - 1);
+            CellContainer lastCell = cells.get(cells.size() - 1 - iteration);
             CellContainer curCell;
 
             curCell = cells.stream()
@@ -201,6 +201,7 @@ public class TaskManagerService {
                 curCell.taskItem = task.taskItem;
                 tasks.remove(task);
             }
+            iteration += 1;
 
         }
 

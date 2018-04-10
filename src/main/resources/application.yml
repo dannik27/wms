@@ -10,9 +10,9 @@ spring:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://192.168.99.100:5432/wms
+    username: wms
+    password: wms
 
 ---
 
