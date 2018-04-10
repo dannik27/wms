@@ -22,3 +22,12 @@ spring:
     url: jdbc:postgresql://kokoserver.me:5432/wms
     username: wms
     password: wms
+
+---
+
+spring:
+  profiles: docker
+  datasource:
+    url: jdbc:postgresql://postgres:5432/wms
+    username: wms
+    password: wms

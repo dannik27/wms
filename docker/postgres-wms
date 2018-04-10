@@ -1,6 +1,15 @@
 version: '3'
 services:
-  postgres-wms:
+
+
+  activiti:
+    image: tomcat:8-alpine
+    volumes:
+      - /app/activiti-app.war:/usr/local/share/tomcat/webapps/activiti-app.war
+    ports:
+      - "8080:8080"
+
+  postgres:
     image: postgres:alpine
     volumes:
       - wms-data:/var/lib/postgresql
