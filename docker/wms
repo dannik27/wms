@@ -1,11 +1,15 @@
 version: '3'
 services:
 
+  wms:
+    image: troofy/wms
+    ports:
+      - "8090:8090"
+    environment:
+      ACTIVE_PROFILE: docker
 
   activiti:
-    image: tomcat:8-alpine
-    volumes:
-      - /app/activiti-app.war:/usr/local/share/tomcat/webapps/activiti-app.war
+    image: troofy/activiti
     ports:
       - "8080:8080"
 

@@ -1,13 +1,11 @@
 version: '3'
 services:
 
-  wms:
-    image: java:8-jre-alpine
-    volumes:
-      - ${PWD}/app:/app
+
+  activiti:
+    image: troofy/activiti
     ports:
-      - "8090:8090"
-    command: ls -l /app
+      - "8080:8080"
 
   postgres:
     image: postgres:alpine
