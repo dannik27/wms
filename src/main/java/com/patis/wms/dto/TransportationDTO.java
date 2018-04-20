@@ -29,8 +29,10 @@ public class TransportationDTO {
         dateShipped = transportation.getDateShipped();
         dateReceived = transportation.getDateReceived();
         request = new RequestDTO(transportation.getRequest());
-        waybill = new WaybillDTO(transportation.getWaybill());
-        packingList = new PackingListDTO(transportation.getPackingList());
+        if(transportation.getWaybill() != null)
+            waybill = new WaybillDTO(transportation.getWaybill());
+        if(transportation.getPackingList() != null)
+            packingList = new PackingListDTO(transportation.getPackingList());
 
     }
 
@@ -42,8 +44,10 @@ public class TransportationDTO {
         transportation.setDateShipped(dateShipped);
         transportation.setDateReceived(dateReceived);
         transportation.setRequest(request.toEntity());
-        transportation.setWaybill(waybill.toEntity());
-        transportation.setPackingList(packingList.toEntity());
+        if(waybill != null)
+            transportation.setWaybill(waybill.toEntity());
+        if(packingList != null)
+            transportation.setPackingList(packingList.toEntity());
         return transportation;
     }
 

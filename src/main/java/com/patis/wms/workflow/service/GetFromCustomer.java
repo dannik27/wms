@@ -65,11 +65,14 @@ public class GetFromCustomer {
 
   }
 
-  public void createTransportation(TransportationCreateDTO transportationCreateDTO, String taskId){
+  public void createTransportation(TransportationCreateDTO transportationCreateDTO){
 
-    Map<String, Object> variables = new HashMap<> ();
-    variables.put("transportationCreateDTO", transportationCreateDTO);
-    taskService.complete(taskId, variables);
+    String taskId = getTaskIdByRequestId(transportationCreateDTO.getId_request(), "createTransportation");
+    if(taskId != null){
+      Map<String, Object> variables = new HashMap<> ();
+      variables.put("transportationCreateDTO", transportationCreateDTO);
+      taskService.complete(taskId, variables);
+    }
 
   }
 
@@ -102,10 +105,15 @@ public class GetFromCustomer {
     return transportation.getId();
   }
 
-  public void receiveTransportation(LocalDateTime dateReceived, String taskId){
-    Map<String, Object> variables = new HashMap<>();
-    variables.put("receiveDate", dateReceived);
-    taskService.complete(taskId, variables);
+  public void receiveTransportation(LocalDateTime dateReceived, long requestId){
+
+    String taskId = getTaskIdByRequestId(requestId, "receiveTransportation");
+    if(taskId != null) {
+
+      Map<String, Object> variables = new HashMap<>();
+      variables.put("receiveDate", dateReceived);
+      taskService.complete(taskId, variables);
+    }
   }
 
   public void createTasks(long id_transportation, LocalDateTime receiveDate)
@@ -115,10 +123,33 @@ public class GetFromCustomer {
     taskManagerService.transportationReceived(transportation, receiveDate);
   }
 
-  public void complete(String taskId){
-    taskService.complete(taskId);
+  public void complete(long requestId){
+
+    String taskId = getTaskIdByRequestId(requestId, "completeTask");
+    if(taskId != null) {
+      taskService.complete(taskId);
+    }
+
+
+
   }
 
 
+
+
+  private String getTaskIdByRequestId(long requestId, String taskName){
+
+    org.activiti.engine.task.Task task =  taskService.createTaskQuery()
+      .processVariableValueEquals("requestId", requestId)
+      .taskDefinitionKey(taskName)
+      .active()
+      .list().get(0);
+
+    if(task != null){
+      return task.getId();
+    }else{
+      return null;
+    }
+  }
 
 }
