@@ -8,11 +8,6 @@ services:
     environment:
       ACTIVE_PROFILE: docker
 
-  activiti:
-    image: troofy/activiti
-    ports:
-      - "8080:8080"
-
   postgres:
     image: postgres:alpine
     volumes:

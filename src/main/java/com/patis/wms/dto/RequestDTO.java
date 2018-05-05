@@ -18,6 +18,7 @@ public class RequestDTO {
     private StorehouseDTO storehouseTo;
     private LocalDate dateBegin;
     private CustomerDTO customer;
+    private OperationType operationType;
 
 
     public RequestDTO(Request request){
@@ -27,6 +28,7 @@ public class RequestDTO {
         if(request.getStorehouseTo()!=null){storehouseTo = new StorehouseDTO(request.getStorehouseTo());}
         dateBegin = request.getDateBegin();
         if(request.getCustomer()!=null){customer = new CustomerDTO(request.getCustomer());}
+        operationType = request.getOperationType();
     }
 
     public Request toEntity(){
@@ -37,6 +39,7 @@ public class RequestDTO {
         if(storehouseTo != null) {request.setStorehouseTo(storehouseTo.toEntity());}
         request.setDateBegin(dateBegin);
         if(customer != null) {request.setCustomer(customer.toEntity());}
+        request.setOperationType(operationType);
         return request;
     }
 }

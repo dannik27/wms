@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("worker")
@@ -28,9 +29,9 @@ public class WorkerController {
     RoleService roleService;
 
     @GetMapping("/")
-    ResponseEntity<List<Worker>> findAll(){
+    ResponseEntity<List<WorkerDTO>> findAll(){
 
-        List<Worker> result = workerService.findAll();
+        List<WorkerDTO> result = workerService.findAll().stream().map(WorkerDTO::new).collect(Collectors.toList());
         if(result != null){
             return new ResponseEntity<>(result, HttpStatus.OK);
         }else{
