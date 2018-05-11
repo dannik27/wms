@@ -4,8 +4,10 @@ import com.patis.wms.entity.Waybill;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data @NoArgsConstructor
-public class WaybillDTO {
+public class WaybillDTO implements Serializable {
 
     private long id;
     private String info;
