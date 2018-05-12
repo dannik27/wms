@@ -1,14 +1,14 @@
 package com.patis.wms.dto;
 
 
-import com.patis.wms.entity.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import com.patis.wms.entity.OperationType;
+import com.patis.wms.entity.Task;
+import com.patis.wms.entity.TaskStatus;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor
 public class TaskDTO {
@@ -19,6 +19,8 @@ public class TaskDTO {
     private List<DistributionDTO> distributions;
     private LocalDateTime timeBegin;
     private LocalDateTime timeEnd;
+    private WorkerDTO worker;
+    private String customerName;
 
     public TaskDTO(Task task){
         id = task.getId();
@@ -31,6 +33,13 @@ public class TaskDTO {
 
         timeBegin = task.getTimeBegin();
         timeEnd = task.getTimeEnd();
+        worker = new WorkerDTO(task.getWorker());
+
+        if(task.getTransportation().getRequest().getCustomer() != null){
+            customerName = task.getTransportation().getRequest().getCustomer().getCompany().getName();
+        }else{
+            customerName = "Перенос";
+        }
     }
 
 }
