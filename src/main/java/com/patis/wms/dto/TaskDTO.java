@@ -21,6 +21,7 @@ public class TaskDTO {
     private LocalDateTime timeEnd;
     private WorkerDTO worker;
     private String customerName;
+    private long transportationId;
 
     public TaskDTO(Task task){
         id = task.getId();
@@ -40,6 +41,8 @@ public class TaskDTO {
         }else{
             customerName = "Перенос";
         }
+
+        transportationId = task.getTransportation().getId();
     }
 
 }
