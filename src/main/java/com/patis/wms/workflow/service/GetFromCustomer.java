@@ -12,6 +12,7 @@ import com.patis.wms.service.ProductService;
 import com.patis.wms.service.RequestService;
 import com.patis.wms.service.StorehouseService;
 import com.patis.wms.service.TaskManagerService;
+import com.patis.wms.service.TransportCompanyService;
 import com.patis.wms.service.TransportationService;
 import com.patis.wms.service.WorkerService;
 import java.time.LocalDateTime;
@@ -46,6 +47,9 @@ public class GetFromCustomer {
 
   @Autowired
   TaskManagerService taskManagerService;
+
+  @Autowired
+  TransportCompanyService transportCompanyService;
 
 
   @Autowired
@@ -100,7 +104,7 @@ public class GetFromCustomer {
   public long saveTransportation(TransportationCreateDTO transportationCreateDTO)
       throws StorehouseException {
 
-    Transportation transportation = transportationService.save(transportationCreateDTO.toEntity(requestService));
+    Transportation transportation = transportationService.save(transportationCreateDTO.toEntity(requestService, transportCompanyService));
     taskManagerService.transportationStart(transportation, LocalDateTime.now());
     return transportation.getId();
   }

@@ -1,22 +1,26 @@
 package com.patis.wms.controller;
 
 import com.patis.wms.StorehouseException;
-import com.patis.wms.dto.StorehouseDTO;
 import com.patis.wms.dto.TransportationDTO;
 import com.patis.wms.dto.create.TransportationCreateDTO;
 import com.patis.wms.entity.Transportation;
 import com.patis.wms.service.RequestService;
 import com.patis.wms.service.TaskManagerService;
 import com.patis.wms.service.TaskService;
+import com.patis.wms.service.TransportCompanyService;
 import com.patis.wms.service.TransportationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("transportation")
@@ -34,6 +38,9 @@ public class TransportationController {
     @Autowired
     RequestService requestService;
 
+    @Autowired
+    TransportCompanyService transportCompanyService;
+
     @GetMapping("/")
     ResponseEntity<List<TransportationDTO>> findAll(){
 
@@ -49,7 +56,7 @@ public class TransportationController {
     @PostMapping("/")
     long save(@RequestBody TransportationCreateDTO transportationDTO){
 
-        Transportation transportation = transportationService.save(transportationDTO.toEntity(requestService));
+        Transportation transportation = transportationService.save(transportationDTO.toEntity(requestService, transportCompanyService));
         return transportation.getId();
 
     }

@@ -22,6 +22,7 @@ public class TaskDTO {
     private WorkerDTO worker;
     private String customerName;
     private long transportationId;
+    private String storehouseName;
 
     public TaskDTO(Task task){
         id = task.getId();
@@ -43,6 +44,12 @@ public class TaskDTO {
         }
 
         transportationId = task.getTransportation().getId();
+
+        if(operationType == OperationType.IN){
+            storehouseName = task.getTransportation().getRequest().getStorehouseTo().getName();
+        }else{
+            storehouseName = task.getTransportation().getRequest().getStorehouseFrom().getName();
+        }
     }
 
 }
