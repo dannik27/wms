@@ -50,7 +50,7 @@ public class GetFromCustomerController {
 
   }
 
-  @PostMapping("/receiveTransportation/{id_request}")
+  @PostMapping("/receiveTransportation/{id_transportation}")
   void receiveTransportation(
       @RequestBody LocalDateTime dateReceived,
       @PathVariable("id_transportation") long transportationId) {
