@@ -56,6 +56,20 @@ public class TaskController {
 
     }
 
+    @GetMapping("/{id_task}/")
+    ResponseEntity<TaskDTO> findAll(
+      @PathVariable("id_task") long id_task
+    ){
+        Task result = taskService.findOne(id_task);
+
+        if(result != null){
+            return new ResponseEntity<>(new TaskDTO(result), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
     @PostMapping("/{id_task}/start/")
     void putDistributionInWork(
         @PathVariable("id_task") long id_task
