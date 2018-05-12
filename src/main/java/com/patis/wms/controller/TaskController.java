@@ -5,6 +5,7 @@ import com.patis.wms.entity.Task;
 import com.patis.wms.entity.TaskStatus;
 import com.patis.wms.service.DistributionService;
 import com.patis.wms.service.TaskService;
+import com.patis.wms.workflow.service.GetFromCustomer;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,9 @@ public class TaskController {
 
     @Autowired
     DistributionService distributionService;
+
+    @Autowired
+    GetFromCustomer getFromCustomerService;
 
 
 
@@ -103,6 +107,8 @@ public class TaskController {
         if (remained == 0){
             task.setTaskStatus(TaskStatus.DONE);
             task.setTimeEnd(LocalDateTime.now());
+
+            getFromCustomerService.complete(task.getTransportation().getRequest().getId());
         }
 
         taskService.save(task);

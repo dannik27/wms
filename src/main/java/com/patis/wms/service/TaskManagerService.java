@@ -173,9 +173,9 @@ public class TaskManagerService {
             CellContainer curCell;
 
             curCell = cells.stream()
+                    .filter(cell -> cell.countNew == 0)
                     .peek(cell -> cell.count = (int) (cell.storehouseCell.getCapacity() / task.taskItem.getProduct().getVolume()))
                     .filter(cell -> cell.count >= task.count)
-                    .filter(cell -> cell.countNew == 0)
                     .findFirst()
                     .orElse(lastCell);
 
