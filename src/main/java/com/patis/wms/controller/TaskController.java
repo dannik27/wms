@@ -1,18 +1,23 @@
 package com.patis.wms.controller;
 
 import com.patis.wms.dto.TaskDTO;
-import com.patis.wms.dto.WorkerDTO;
-import com.patis.wms.entity.*;
-import com.patis.wms.service.*;
+import com.patis.wms.entity.Task;
+import com.patis.wms.entity.TaskStatus;
+import com.patis.wms.service.DistributionService;
+import com.patis.wms.service.TaskService;
 import java.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("task")
@@ -34,14 +39,14 @@ public class TaskController {
     ){
 
         List<Task> tasks;
-        if (id_worker.isPresent()){
+        if (id_worker.isPresent() && id_worker.get() != 0){
             tasks = taskService.findByWorker(id_worker.get());
         }else{
             tasks = taskService.findAll();
         }
 
         List<TaskDTO> result = tasks.stream().map(TaskDTO::new)
-                .filter(t ->!current.isPresent() || ( current.get() && (t.getTaskStatus() == TaskStatus.IN_WORK || t.getTaskStatus() == TaskStatus.READY)) )
+                .filter(t ->!current.isPresent() || ! current.get() || ( current.get() && (t.getTaskStatus() == TaskStatus.IN_WORK || t.getTaskStatus() == TaskStatus.READY)) )
                 .collect(Collectors.toList());
         if(result != null){
             return new ResponseEntity<>(result, HttpStatus.OK);
