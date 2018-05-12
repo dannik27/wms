@@ -2,6 +2,8 @@ package com.patis.wms.workflow.controller;
 
 import com.patis.wms.dto.create.RequestCreateDTO;
 import com.patis.wms.dto.create.TransportationCreateDTO;
+import com.patis.wms.entity.Transportation;
+import com.patis.wms.service.TransportationService;
 import com.patis.wms.workflow.TaskDTO;
 import com.patis.wms.workflow.service.GetFromCustomer;
 import java.time.LocalDateTime;
@@ -30,6 +32,9 @@ public class GetFromCustomerController {
   @Autowired
   GetFromCustomer getFromCustomer;
 
+  @Autowired
+  TransportationService transportationService;
+
   @PostMapping("/start/")
   void start(@RequestBody RequestCreateDTO requestCreateDTO){
 
@@ -48,9 +53,14 @@ public class GetFromCustomerController {
   @PostMapping("/receiveTransportation/{id_request}")
   void receiveTransportation(
       @RequestBody LocalDateTime dateReceived,
-      @PathVariable("id_request") long requestId) {
+      @PathVariable("id_transportation") long transportationId) {
 
-    getFromCustomer.receiveTransportation ( dateReceived, requestId );
+    Transportation transportation = transportationService.findOne(transportationId);
+    if((transportation != null) && (transportation.getDateReceived() == null)){
+      getFromCustomer.receiveTransportation ( dateReceived, transportationId );
+    }
+
+
 
   }
 

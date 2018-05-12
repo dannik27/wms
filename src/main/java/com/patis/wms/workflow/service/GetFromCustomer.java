@@ -105,9 +105,11 @@ public class GetFromCustomer {
     return transportation.getId();
   }
 
-  public void receiveTransportation(LocalDateTime dateReceived, long requestId){
+  public void receiveTransportation(LocalDateTime dateReceived, long transportationId){
 
-    String taskId = getTaskIdByRequestId(requestId, "receiveTransportation");
+    Transportation transportation = transportationService.findOne(transportationId);
+
+    String taskId = getTaskIdByRequestId(transportation.getRequest().getId(), "receiveTransportation");
     if(taskId != null) {
 
       Map<String, Object> variables = new HashMap<>();

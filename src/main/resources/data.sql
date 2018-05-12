@@ -28,9 +28,9 @@ insert into person ( name, last_name, middle_name, birth_date, email)
 insert into person ( name, last_name, middle_name, birth_date, email)
     values ( 'Иван', 'Серябкин', 'Анатолиевич', '1945-11-10', 'ivan@mail.ru' ); -- 4
 
-INSERT INTO worker (id_person, id_role, date_hired) VALUES (1, 2, '1995-05-15'); -- 1
-INSERT INTO worker (id_person, id_role, date_hired) VALUES (2, 2, '2002-06-18'); -- 2
-INSERT INTO worker (id_person, id_role, date_hired) VALUES (3, 2, '2002-06-18'); -- 3
+INSERT INTO worker (id_person, id_role, date_hired, login, "password") VALUES (1, 2, '1995-05-15', 1, 1); -- 1
+INSERT INTO worker (id_person, id_role, date_hired, login, "password") VALUES (2, 2, '2002-06-18', 2, 2); -- 2
+INSERT INTO worker (id_person, id_role, date_hired, login, "password") VALUES (3, 2, '2002-06-18', 3, 3); -- 3
 
 
 insert into product (description, name, volume) VALUES ('Фигня какая-то', 'штуцер 50х3', 2); -- 1
