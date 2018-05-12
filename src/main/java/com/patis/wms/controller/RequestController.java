@@ -1,6 +1,5 @@
 package com.patis.wms.controller;
 
-import com.patis.wms.dto.PersonDTO;
 import com.patis.wms.dto.RequestDTO;
 import com.patis.wms.dto.RequestItemDTO;
 import com.patis.wms.dto.create.RequestCreateDTO;
@@ -8,19 +7,23 @@ import com.patis.wms.dto.create.RequestItemCreateDTO;
 import com.patis.wms.entity.Request;
 import com.patis.wms.entity.RequestItem;
 import com.patis.wms.service.CustomerService;
-import com.patis.wms.service.PersonService;
 import com.patis.wms.service.ProductService;
 import com.patis.wms.service.RequestItemService;
 import com.patis.wms.service.RequestService;
 import com.patis.wms.service.StorehouseService;
 import com.patis.wms.service.WorkerService;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("request")
@@ -51,6 +54,18 @@ public class RequestController {
                 .stream().map(RequestDTO::new).collect(Collectors.toList());
         if(result != null){
             return new ResponseEntity<>(result, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @GetMapping("/{request_id}/")
+    ResponseEntity<RequestDTO> findOne(@PathVariable("request_id") long request_id){
+
+        Request result = requestService.findOne(request_id);
+        if(result != null){
+            return new ResponseEntity<>(new RequestDTO(result), HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

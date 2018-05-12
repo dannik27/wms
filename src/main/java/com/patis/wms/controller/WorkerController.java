@@ -61,6 +61,18 @@ public class WorkerController {
 
     }
 
+    @GetMapping("/{worker_id}/")
+    ResponseEntity<WorkerDTO> findOne(@PathVariable("worker_id") long worker_id){
+
+        Worker result = workerService.findOne(worker_id);
+        if(result != null){
+            return new ResponseEntity<>(new WorkerDTO(result), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
     @PostMapping("/")
     long save(@RequestBody WorkerCreateDTO workerDTO){
 
