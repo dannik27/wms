@@ -1,16 +1,10 @@
 package com.patis.wms.service;
 
-import com.patis.wms.dto.WorkerDTO;
-import com.patis.wms.entity.Role;
 import com.patis.wms.entity.Worker;
-import com.patis.wms.repository.RoleRepository;
 import com.patis.wms.repository.WorkerRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class WorkerService {
@@ -35,6 +29,9 @@ public class WorkerService {
     }
     public void remove(long id){
         repository.delete(id);
+    }
+    public Worker authorization(String login, String password){
+        return repository.findTop1ByLoginAndPassword(login, password);
     }
 
 }

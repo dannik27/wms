@@ -12,6 +12,8 @@ public class WorkerCreateDTO {
   private long id_role;
   private LocalDate dateHired;
   private LocalDate dateFired;
+  private String login;
+  private String password;
 
 
   public Worker toEntity(RoleService roleService, PersonService personService){
@@ -21,6 +23,8 @@ public class WorkerCreateDTO {
     worker.setRole(roleService.findOne(id_role));
     worker.setDateFired(dateFired);
     worker.setDateHired(dateHired);
+    worker.setLogin(login);
+    worker.setPassword(password);
     return worker;
   }
 

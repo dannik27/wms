@@ -1,13 +1,10 @@
 package com.patis.wms.service;
 
 import com.patis.wms.entity.Task;
-import com.patis.wms.entity.Transportation;
 import com.patis.wms.repository.TaskRepository;
-import com.patis.wms.repository.TransportationRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class TaskService {
@@ -16,7 +13,7 @@ public class TaskService {
     @Autowired
     private TaskRepository repository;
 
-    public List<Task> findByWorker(long id_worker){ return repository.findByWorker_Id(id_worker);}
+    public List<Task> findByWorker(long id_worker){ return repository.findByWorker_IdOrderByTimeBeginDesc(id_worker);}
     public Task findOne(long id){
         return repository.findOne(id);
     }
