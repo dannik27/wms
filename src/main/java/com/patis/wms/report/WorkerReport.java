@@ -48,7 +48,7 @@ public class WorkerReport {
         for(Distribution distribution : taskItem.getDistributions()){
           if(distribution.isDone()){
             tempItem.setDone(tempItem.getDone() + 1);
-            tempItem.setWeight(tempItem.getWeight() + distribution.getCount() * distribution.getTaskItem().getProduct().getVolume());
+            tempItem.setWeight(tempItem.getWeight() + Math.abs(distribution.getCount()) * distribution.getTaskItem().getProduct().getVolume());
           }
         }
       }

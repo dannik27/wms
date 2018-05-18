@@ -92,20 +92,20 @@ insert into packing_list (info) values ('товарная накладная');
 insert into transportation (id_request, id_packing_list, id_waybill, gross_weight, date_shipped, date_received)
     values (1, 1, 1, 50, '2018-03-20 14:50', null);
 
---INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
---    VALUES (2, '2018-03-21 9:30', '2018-03-21 10:10', 0, 3); -- 1
+INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
+    VALUES (1, '2018-03-21 9:30', '2018-03-21 10:10', 0, 3); -- 1
 
---INSERT INTO task_item (id_product, id_task, count) VALUES (1, 1, 25);
---INSERT INTO task_item (id_product, id_task, count) VALUES (2, 1, 10);
+INSERT INTO task_item (id_product, id_task, count) VALUES (1, 1, 15);
+INSERT INTO task_item (id_product, id_task, count) VALUES (2, 1, 20);
 
 
---INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (1, 1, 20, true);
---INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (2, 1, 5, true);
---INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (3, 2, 10, true);
+INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (1, 1, 10, true);
+INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (2, 1, 5, true);
+INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (3, 2, 20, true);
 
---update storehouse_cell set id_product = 1 where id = 1;
---update storehouse_cell set id_product = 1 where id = 2;
---update storehouse_cell set id_product = 2 where id = 3;
+update storehouse_cell set id_product = 1 where id = 1;
+update storehouse_cell set id_product = 1 where id = 2;
+update storehouse_cell set id_product = 2 where id = 3;
 
 -- Перенос со склада на склад
 
@@ -121,26 +121,26 @@ insert into packing_list (info) values ('товарная накладная 2')
 insert into transportation (id_request, id_packing_list, id_waybill, gross_weight, date_shipped, date_received)
     values (2, 2, 2, 22, null, null);
 
---INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
---    VALUES (1, null, null, 1, 3); -- 2
---INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
---    VALUES (null, null, null, 0, 3); -- 3
+INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
+    VALUES (1, null, null, 1, 3); -- 2
+INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
+    VALUES (2, null, null, 0, 3); -- 3
 
---INSERT INTO task_item (id_product, id_task, count) VALUES (1, 2, 10); -- 3
+INSERT INTO task_item (id_product, id_task, count) VALUES (1, 2, 10); -- 3
 
---INSERT INTO task_item (id_product, id_task, count) VALUES (1, 3, 10); -- 4
+INSERT INTO task_item (id_product, id_task, count) VALUES (1, 3, 10); -- 4
 
---INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (1, 3, -10, true);
---INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (4, 4, 10, true);
+INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (1, 3, -10, true);
+INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (4, 4, 10, true);
 
---update storehouse_cell set id_product = 1 where id = 4;
+update storehouse_cell set id_product = 1 where id = 4;
 
 -- Отгрузка со склада
 
 INSERT INTO request (date_begin, id_worker, id_customer, id_storehouse_from, id_storehouse_to, operation_type)
     VALUES ('2018-03-11', 2, 2, 1, null, 1);
 
-INSERT INTO request_item (count, id_product, id_request) VALUES (12, 1, 3);
+INSERT INTO request_item (count, id_product, id_request) VALUES (7, 1, 3);
 
 insert into waybill (info, id_transport_company) values ('транспортная накладная 3', 1);
 
@@ -149,4 +149,9 @@ insert into packing_list (info) values ('товарная накладная 3')
 insert into transportation (id_request, id_packing_list, id_waybill, gross_weight, date_shipped, date_received)
     values (3, 3, 3, 30, null, null);
 
+INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
+    VALUES (2, null, null, 1, 3); -- 4
 
+INSERT INTO task_item (id_product, id_task, count) VALUES (1, 4, 7); -- 5
+
+INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (4, 5, -7, true);
