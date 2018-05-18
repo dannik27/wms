@@ -5,20 +5,22 @@ import com.patis.wms.dto.StorehouseCellDTO;
 import com.patis.wms.dto.StorehouseDTO;
 import com.patis.wms.dto.create.StorehouseCellCreateDTO;
 import com.patis.wms.dto.create.StorehouseCreateDTO;
-import com.patis.wms.entity.Customer;
 import com.patis.wms.entity.Storehouse;
 import com.patis.wms.entity.StorehouseCell;
-import com.patis.wms.service.CustomerService;
 import com.patis.wms.service.ProductService;
 import com.patis.wms.service.StorehouseService;
-import org.apache.catalina.Store;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("storehouse")
@@ -50,6 +52,22 @@ public class StorehouseController {
         Storehouse storehouse = storehouseService.findOne(id_storehouse);
         List<StorehouseCellDTO> result = storehouse.getStorehouseCells().stream().map(StorehouseCellDTO::new).collect(Collectors.toList());
         if(result != null){
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @GetMapping("/{id_storehouse}/free/")
+    ResponseEntity<Double> freeSpace(
+      @PathVariable("id_storehouse") long id_storehouse
+    ){
+
+        Storehouse storehouse = storehouseService.findOne(id_storehouse);
+        //List<StorehouseCellDTO> result = storehouse.getStorehouseCells().stream().map(StorehouseCellDTO::new).collect(Collectors.toList());
+        if(storehouse != null){
+            double result = storehouse.getStorehouseCells().stream().mapToDouble(sc -> sc.getCapacity() - sc.getBusy()).sum();
             return new ResponseEntity<>(result, HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

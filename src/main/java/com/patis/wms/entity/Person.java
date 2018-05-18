@@ -3,13 +3,16 @@ package com.patis.wms.entity;
 
 
 import com.google.gson.annotations.Expose;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data @NoArgsConstructor
@@ -43,6 +46,10 @@ public class Person {
         this.middleName = middleName;
         this.birthDate = birthDate;
         this.email = email;
+    }
+
+    public String getFio(){
+        return String.format("%s %s.%s.", lastName, name.charAt(0), middleName.charAt(0));
     }
 
 }
