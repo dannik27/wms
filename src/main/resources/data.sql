@@ -58,6 +58,7 @@ INSERT INTO storehouse (name, id_customer, address) VALUES ('Склад стро
 
 update worker set id_storehouse = 1 where id = 1;
 update worker set id_storehouse = 2 where id = 2;
+update worker set id_storehouse = 1 where id = 3;
 
 INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 20, 'A1'); -- 1
 INSERT INTO storehouse_cell (id_storehouse, capacity, name) VALUES (1, 20, 'A2'); -- 2
@@ -122,9 +123,9 @@ insert into transportation (id_request, id_packing_list, id_waybill, gross_weigh
     values (2, 2, 2, 22, null, null);
 
 INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
-    VALUES (1, null, null, 1, 3); -- 2
+    VALUES (3, null, '2018-03-22', 1, 3); -- 2
 INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
-    VALUES (2, null, null, 0, 3); -- 3
+    VALUES (2, null, '2018-03-23', 0, 3); -- 3
 
 INSERT INTO task_item (id_product, id_task, count) VALUES (1, 2, 10); -- 3
 
@@ -150,7 +151,7 @@ insert into transportation (id_request, id_packing_list, id_waybill, gross_weigh
     values (3, 3, 3, 30, null, null);
 
 INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
-    VALUES (2, null, null, 1, 3); -- 4
+    VALUES (2, null, '2018-03-24', 1, 3); -- 4
 
 INSERT INTO task_item (id_product, id_task, count) VALUES (1, 4, 7); -- 5
 

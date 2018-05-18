@@ -38,7 +38,6 @@ public class ReportController {
   ) throws IOException {
 
 
-    List<Task> tasks = taskService.findAll();
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("Content-Disposition", "inline; filename=workers.pdf");
@@ -47,7 +46,7 @@ public class ReportController {
       .ok()
       .headers(headers)
       .contentType(MediaType.APPLICATION_PDF)
-      .body(workerReport.generatePdf(tasks));
+      .body(workerReport.generatePdf(dateFrom, dateTo));
   }
 
   @RequestMapping(value = "/storehouse/{id_storehouse}", method = RequestMethod.GET,
@@ -65,7 +64,7 @@ public class ReportController {
       .ok()
       .headers(headers)
       .contentType(MediaType.APPLICATION_PDF)
-      .body(workerReport.generatePdf(tasks));
+      .body(null);
 
   }
 
@@ -86,7 +85,7 @@ public class ReportController {
       .ok()
       .headers(headers)
       .contentType(MediaType.APPLICATION_PDF)
-      .body(workerReport.generatePdf(tasks));
+      .body(null);
 
   }
 }

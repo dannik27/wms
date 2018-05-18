@@ -3,8 +3,12 @@ package com.patis.wms.report;
 import com.patis.wms.entity.Distribution;
 import com.patis.wms.entity.Task;
 import com.patis.wms.entity.TaskItem;
+import com.patis.wms.service.TaskService;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +21,7 @@ import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -24,16 +29,27 @@ import org.springframework.stereotype.Service;
 @Service
 public class WorkerReport {
 
+  @Autowired
+  TaskService taskService;
+
   List<WorkerReportItem> items;
   WorkerReportItem tempItem;
 
-  public byte[] generatePdf(List<Task> data){
+  public byte[] generatePdf(LocalDate dateFrom, LocalDate dateTo){
 
     byte[] pdf = null;
 
+    List<Task> data = taskService.findAll();
+
     items = new ArrayList<>();
 
+
     for(Task task : data){
+
+      if((task.getTimeEnd().isBefore(LocalDateTime.of(dateFrom, LocalTime.MIN))) || (task.getTimeEnd().isAfter(LocalDateTime.of(dateTo, LocalTime.MAX)))){
+        continue;
+      }
+
       tempItem = findItem(items, task);
 
 //      task.getTaskItems().stream()
@@ -41,7 +57,7 @@ public class WorkerReport {
 //        .filter(Distribution::isDone)
 //        .forEach(d->{
 //          tempItem.setDone(tempItem.getDone() + 1);
-//          tempItem.setWeight(tempItem.getWeight() + d.getCount() * d.getTaskItem().getProduct().getVolume());
+//          tempItem.setWeight(tempItem.getWeight() + Math.abs(d.getCount()) * d.getTaskItem().getProduct().getVolume());
 //        });
 
       for(TaskItem taskItem : task.getTaskItems()){
