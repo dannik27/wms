@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +27,9 @@ public class ReportController {
   WorkerReport workerReport;
 
   @Autowired
+  StorehouseMovesReport storehouseMoveReport;
+
+  @Autowired
   TaskService taskService;
 
   DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -33,8 +37,8 @@ public class ReportController {
   @RequestMapping(value = "/worker", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_PDF_VALUE)
   public ResponseEntity<byte[]> genWorkerReport(
-    @RequestParam("dateFrom") @DateTimeFormat(pattern="dd.MM.yyyy") LocalDate dateFrom,
-    @RequestParam("dateTo") @DateTimeFormat(pattern="dd.MM.yyyy") LocalDate dateTo
+    @RequestParam("dateFrom") @DateTimeFormat(pattern="dd.MM.yyyy") Optional<LocalDate> dateFrom,
+    @RequestParam("dateTo") @DateTimeFormat(pattern="dd.MM.yyyy") Optional<LocalDate> dateTo
   ) throws IOException {
 
 
@@ -71,12 +75,11 @@ public class ReportController {
   @RequestMapping(value = "/storehouse/{id_storehouse}/moves", method = RequestMethod.GET,
     produces = MediaType.APPLICATION_PDF_VALUE)
   public ResponseEntity<byte[]> getStorehouseMovesReport(
-    @RequestParam("dateFrom") @DateTimeFormat(pattern="dd.MM.yyyy") LocalDate dateFrom,
-    @RequestParam("dateTo") @DateTimeFormat(pattern="dd.MM.yyyy") LocalDate dateTo,
+    @RequestParam("dateFrom") @DateTimeFormat(pattern="dd.MM.yyyy") Optional<LocalDate> dateFrom,
+    @RequestParam("dateTo") @DateTimeFormat(pattern="dd.MM.yyyy") Optional<LocalDate> dateTo,
     @PathVariable("id_storehouse") long id_storehouse
   ) throws IOException {
 
-    List<Task> tasks = taskService.findAll();
 
     HttpHeaders headers = new HttpHeaders();
     headers.add("Content-Disposition", "inline; filename=workers.pdf");
@@ -85,7 +88,7 @@ public class ReportController {
       .ok()
       .headers(headers)
       .contentType(MediaType.APPLICATION_PDF)
-      .body(null);
+      .body(storehouseMoveReport.generatePdf(dateFrom, dateTo, id_storehouse));
 
   }
 }

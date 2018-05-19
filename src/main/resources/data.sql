@@ -132,7 +132,7 @@ INSERT INTO task_item (id_product, id_task, count) VALUES (1, 2, 10); -- 3
 INSERT INTO task_item (id_product, id_task, count) VALUES (1, 3, 10); -- 4
 
 INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (1, 3, -10, true);
-INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (4, 4, 10, true);
+INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (10, 4, 10, true);
 
 update storehouse_cell set id_product = 1 where id = 4;
 
@@ -155,4 +155,4 @@ INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
 
 INSERT INTO task_item (id_product, id_task, count) VALUES (1, 4, 7); -- 5
 
-INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (4, 5, -7, true);
+INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (10, 5, -7, true);

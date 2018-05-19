@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="kek" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c4fb145-9207-4244-b234-b2885a6445e3">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="kek" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c4fb145-9207-4244-b234-b2885a6445e3">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
@@ -40,32 +40,92 @@
 		<field name="done" class="java.lang.Integer"/>
 		<field name="weight" class="java.lang.Float"/>
 	</subDataset>
+	<subDataset name="chartDataset" uuid="10f64918-4bcd-4e95-abf6-b9581d353326">
+		<field name="serie" class="java.lang.String"/>
+		<field name="key" class="java.lang.String"/>
+		<field name="value" class="java.lang.Number"/>
+		<field name="label" class="java.lang.String"/>
+	</subDataset>
 	<parameter name="dataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="dateFromField" class="java.lang.String"/>
+	<parameter name="dateToField" class="java.lang.String"/>
+	<parameter name="rowCountField" class="java.lang.String"/>
+	<parameter name="chartDatasource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
 	<detail>
-		<band height="410" splitType="Stretch">
+		<band height="682" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="10" width="511" height="20" uuid="a075618d-49d1-4ed9-bd10-bc3a76ef76c7"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="13"/>
+				</textElement>
+				<text><![CDATA[Объём выполненных задач складскими работниками.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="40" width="100" height="20" uuid="ba0187dc-0334-44d5-8755-4f03ac5ccc89"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="13"/>
+				</textElement>
+				<text><![CDATA[На период:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="290" y="70" width="240" height="20" uuid="b1446efe-ca37-4784-899a-9face2a4d925"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dateToField}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="70" width="260" height="20" uuid="45cf0b2e-9df7-4296-a1e4-d06af658d33e"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dateFromField}]]></textFieldExpression>
+			</textField>
+			<pieChart>
+				<chart evaluationTime="Report">
+					<reportElement x="60" y="370" width="410" height="305" uuid="6f41010b-0ddc-43e4-8239-79bc93aa5001"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<dataset>
+						<datasetRun subDataset="chartDataset" uuid="3e6e2a0f-f237-4804-9ed5-c0599da2c5da">
+							<dataSourceExpression><![CDATA[$P{chartDatasource}]]></dataSourceExpression>
+						</datasetRun>
+					</dataset>
+					<keyExpression><![CDATA[$F{serie}]]></keyExpression>
+					<valueExpression><![CDATA[$F{value}]]></valueExpression>
+					<labelExpression><![CDATA[$F{label}]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
 			<componentElement>
-				<reportElement x="10" y="60" width="510" height="300" uuid="9057ff0f-494c-42b7-82d5-5a9c1a8d9055">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="130" width="524" height="145" uuid="9057ff0f-494c-42b7-82d5-5a9c1a8d9055">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
 					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
 				</reportElement>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
 					<datasetRun subDataset="Dataset1" uuid="62b8170f-08ab-4a72-bf13-f5315d5185f2">
 						<dataSourceExpression><![CDATA[$P{dataSource}]]></dataSourceExpression>
 					</datasetRun>
 					<jr:column width="102" uuid="8d1535cd-94c4-4949-a7b0-1551a5df1076">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+						<jr:columnHeader style="Table_CH" height="60" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="102" height="30" uuid="be03c3fb-47ce-48b3-983c-2b855f8ef348"/>
+								<reportElement x="0" y="0" width="102" height="60" uuid="09cf43f4-b044-4b89-80b6-d72a7cfe0361"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<text><![CDATA[Русский]]></text>
+								<text><![CDATA[Номер]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
@@ -80,13 +140,13 @@
 					</jr:column>
 					<jr:column width="102" uuid="cd54e8ab-2625-44a6-b963-1caef557d417">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+						<jr:columnHeader style="Table_CH" height="60" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="102" height="30" uuid="478797b8-2188-4ae4-822f-52aedc105184"/>
+								<reportElement x="0" y="0" width="102" height="60" uuid="c9901578-7b5d-4e4a-a878-e7e521e0b1da"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<text><![CDATA[English]]></text>
+								<text><![CDATA[Ф.И.О]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
@@ -101,13 +161,13 @@
 					</jr:column>
 					<jr:column width="102" uuid="10404d96-f2b5-4ccc-9c72-f9cd25b57b82">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+						<jr:columnHeader style="Table_CH" height="60" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="102" height="30" uuid="b083d375-8ff2-4812-ad2b-152485b546ba"/>
+								<reportElement x="0" y="0" width="102" height="60" uuid="132c6ce4-1ac6-41f4-8599-e2b52ccea313"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<text><![CDATA[Static Text]]></text>
+								<text><![CDATA[Склад]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
@@ -122,13 +182,13 @@
 					</jr:column>
 					<jr:column width="102" uuid="5186361a-2042-4ae7-afb6-203651726b5d">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+						<jr:columnHeader style="Table_CH" height="60" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="102" height="30" uuid="d6b25dc3-dfd6-4675-86c9-5689d6a230be"/>
+								<reportElement x="0" y="0" width="102" height="60" uuid="d21bca8b-0262-4943-bbd1-663c2cd58b61"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<text><![CDATA[Static Text]]></text>
+								<text><![CDATA[Кол-во выполненых задач]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
@@ -143,13 +203,13 @@
 					</jr:column>
 					<jr:column width="102" uuid="5c9d997f-884c-4405-a22e-605554607903">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
-						<jr:columnHeader style="Table_CH" height="30" rowSpan="1">
+						<jr:columnHeader style="Table_CH" height="60" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="102" height="30" uuid="5118eb00-459b-4319-aced-0cf7c800237a"/>
+								<reportElement x="0" y="0" width="102" height="60" uuid="e6edc367-8e14-4d87-9009-78b294405852"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<text><![CDATA[Static Text]]></text>
+								<text><![CDATA[Суммарный объём перемещенных грузов]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="30">
@@ -164,10 +224,13 @@
 					</jr:column>
 				</jr:table>
 			</componentElement>
-			<staticText>
-				<reportElement x="252" y="12" width="100" height="30" uuid="a075618d-49d1-4ed9-bd10-bc3a76ef76c7"/>
-				<text><![CDATA[Static Text]]></text>
-			</staticText>
+			<textField>
+				<reportElement x="0" y="110" width="260" height="20" uuid="c7e96587-81b4-4eaa-983e-a3ccd20ad8a6"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rowCountField}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

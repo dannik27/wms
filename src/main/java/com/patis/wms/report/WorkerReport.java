@@ -1,19 +1,21 @@
 package com.patis.wms.report;
 
-import com.patis.wms.entity.Distribution;
 import com.patis.wms.entity.Task;
-import com.patis.wms.entity.TaskItem;
 import com.patis.wms.service.TaskService;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
@@ -35,7 +37,9 @@ public class WorkerReport {
   List<WorkerReportItem> items;
   WorkerReportItem tempItem;
 
-  public byte[] generatePdf(LocalDate dateFrom, LocalDate dateTo){
+  DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+  public byte[] generatePdf(Optional<LocalDate> dateFrom, Optional<LocalDate> dateTo){
 
     byte[] pdf = null;
 
@@ -44,40 +48,30 @@ public class WorkerReport {
     items = new ArrayList<>();
 
 
-    for(Task task : data){
+    data.stream()
+      .filter(t -> ! dateFrom.isPresent() || t.getTimeEnd().isAfter(LocalDateTime.of(dateFrom.get(), LocalTime.MIN)))
+      .filter(t -> ! dateTo.isPresent() || t.getTimeEnd().isBefore(LocalDateTime.of(dateTo.get(), LocalTime.MAX)))
+      .peek(t -> tempItem = findItem(items, t))
+      .flatMap(t -> t.getTaskItems().stream())
+      .flatMap(ti -> ti.getDistributions().stream())
+      .forEach(d->{
+        tempItem.setDone(tempItem.getDone() + 1);
+        tempItem.setWeight(tempItem.getWeight() + Math.abs(d.getCount()) * d.getTaskItem().getProduct().getVolume());
+      });
 
-      if((task.getTimeEnd().isBefore(LocalDateTime.of(dateFrom, LocalTime.MIN))) || (task.getTimeEnd().isAfter(LocalDateTime.of(dateTo, LocalTime.MAX)))){
-        continue;
-      }
+    items.sort(Comparator.comparingInt(WorkerReportItem::getId));
 
-      tempItem = findItem(items, task);
-
-//      task.getTaskItems().stream()
-//        .flatMap(ti -> ti.getDistributions().stream())
-//        .filter(Distribution::isDone)
-//        .forEach(d->{
-//          tempItem.setDone(tempItem.getDone() + 1);
-//          tempItem.setWeight(tempItem.getWeight() + Math.abs(d.getCount()) * d.getTaskItem().getProduct().getVolume());
-//        });
-
-      for(TaskItem taskItem : task.getTaskItems()){
-        for(Distribution distribution : taskItem.getDistributions()){
-          if(distribution.isDone()){
-            tempItem.setDone(tempItem.getDone() + 1);
-            tempItem.setWeight(tempItem.getWeight() + Math.abs(distribution.getCount()) * distribution.getTaskItem().getProduct().getVolume());
-          }
-        }
-      }
-
-    }
-
+    List<ChartItem> chartItems = items.stream().map(this::toChartItem).collect(Collectors.toList());
 
     try {
 
 
-      JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(items);
       Map<String, Object> parameters = new HashMap<>();
-      parameters.put("dataSource", itemsJRBean);
+      parameters.put("dataSource", new JRBeanCollectionDataSource(items));
+      parameters.put("chartDatasource", new JRBeanCollectionDataSource(chartItems));
+      parameters.put("dateFromField", "С: " + (dateFrom.map(date -> dateFormatter.format(date)).orElse("C начала времён")));
+      parameters.put("dateToField", "По: " + (dateTo.map(date -> dateFormatter.format(date)).orElse("До скончания дней")));
+      parameters.put("rowCountField", "Кол-во строк: " + items.size());
       parameters.put(JRParameter.REPORT_LOCALE, new Locale("ru", "RU"));
 
       Resource template = new ClassPathResource("reports/kek.jasper");
@@ -110,6 +104,11 @@ public class WorkerReport {
     workerReportItem.setStorehouse(task.getWorker().getStorehouse().getName());
     items.add(workerReportItem);
     return workerReportItem;
+  }
+
+
+  private ChartItem toChartItem(WorkerReportItem w){
+    return new ChartItem(w.getName(), w.getName(), w.getWeight(), w.getWeight() + " кг.");
   }
 
 
