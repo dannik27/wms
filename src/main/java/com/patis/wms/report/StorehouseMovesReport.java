@@ -48,10 +48,11 @@ public class StorehouseMovesReport {
       .filter(d -> ! dateFrom.isPresent() || d.getTaskItem().getTask().getTimeEnd().isAfter(LocalDateTime.of(dateFrom.get(), LocalTime.MIN)))
       .filter(d -> ! dateTo.isPresent() || d.getTaskItem().getTask().getTimeEnd().isBefore(LocalDateTime.of(dateTo.get(), LocalTime.MAX)))
       .map(this::createReportItem)
+      .sorted(Comparator.comparingInt(StorehouseMoveReportItem::getId))
       .collect(Collectors.toList());
 
 
-    items.sort(Comparator.comparingInt(StorehouseMoveReportItem::getId));
+
 
 
     try {
@@ -65,7 +66,7 @@ public class StorehouseMovesReport {
       parameters.put("rowCountField", "Кол-во строк: " + items.size());
       parameters.put(JRParameter.REPORT_LOCALE, new Locale("ru", "RU"));
 
-      Resource template = new ClassPathResource("reports/storehouse.jasper");
+      Resource template = new ClassPathResource("reports/storehouse-moves.jasper");
       JasperPrint jasperPrint = JasperFillManager.fillReport(template.getInputStream(), parameters, new JREmptyDataSource());
       pdf = JasperExportManager.exportReportToPdf(jasperPrint);
 

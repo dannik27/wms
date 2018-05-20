@@ -30,6 +30,9 @@ public class ReportController {
   StorehouseMovesReport storehouseMoveReport;
 
   @Autowired
+  StorehouseReport storehouseReport;
+
+  @Autowired
   TaskService taskService;
 
   DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -59,8 +62,6 @@ public class ReportController {
     @PathVariable("id_storehouse") long id_storehouse
   ) throws IOException {
 
-    List<Task> tasks = taskService.findAll();
-
     HttpHeaders headers = new HttpHeaders();
     headers.add("Content-Disposition", "inline; filename=workers.pdf");
 
@@ -68,7 +69,7 @@ public class ReportController {
       .ok()
       .headers(headers)
       .contentType(MediaType.APPLICATION_PDF)
-      .body(null);
+      .body(storehouseReport.generatePdf(id_storehouse));
 
   }
 
