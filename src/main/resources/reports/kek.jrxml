@@ -85,11 +85,17 @@
 				<textFieldExpression><![CDATA[$P{dateFromField}]]></textFieldExpression>
 			</textField>
 			<pieChart>
-				<chart evaluationTime="Report">
+				<chart evaluationTime="Report" renderType="image">
 					<reportElement x="60" y="370" width="410" height="305" uuid="6f41010b-0ddc-43e4-8239-79bc93aa5001"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend/>
+					<chartTitle>
+						<font fontName="DejaVu Sans" isBold="false" isItalic="false"/>
+					</chartTitle>
+					<chartSubtitle>
+						<font fontName="DejaVu Sans"/>
+					</chartSubtitle>
+					<chartLegend>
+						<font fontName="DejaVu Sans"/>
+					</chartLegend>
 				</chart>
 				<pieDataset>
 					<dataset>
