@@ -53,6 +53,20 @@ public class TransportationController {
 
     }
 
+    @GetMapping("/{id_transportation}/")
+    ResponseEntity<TransportationDTO> findOne(
+            @PathVariable("id_transportation") long transportationId
+    ){
+
+        Transportation result = transportationService.findOne(transportationId);
+        if(result != null){
+            return new ResponseEntity<>(new TransportationDTO(result), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
     @PostMapping("/")
     long save(@RequestBody TransportationCreateDTO transportationDTO){
 

@@ -134,7 +134,8 @@ INSERT INTO task_item (id_product, id_task, count) VALUES (1, 3, 10); -- 4
 INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (1, 3, -10, true);
 INSERT INTO distribution (id_storehouse_cell, id_task_item, count, done) VALUES (10, 4, 10, true);
 
-update storehouse_cell set id_product = 1 where id = 4;
+update storehouse_cell set id_product = 1 where id = 10;
+update storehouse_cell set id_product = null where id = 1;
 
 -- Отгрузка со склада
 

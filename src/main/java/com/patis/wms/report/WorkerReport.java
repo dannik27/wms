@@ -72,7 +72,7 @@ public class WorkerReport {
       parameters.put("dateFromField", "С: " + (dateFrom.map(date -> dateFormatter.format(date)).orElse("C начала времён")));
       parameters.put("dateToField", "По: " + (dateTo.map(date -> dateFormatter.format(date)).orElse("До скончания дней")));
       parameters.put("rowCountField", "Кол-во строк: " + items.size());
-      parameters.put(JRParameter.REPORT_LOCALE, new Locale("ru", "RU"));
+      //parameters.put(JRParameter.REPORT_LOCALE, new Locale("ru", "RU"));
 
       Resource template = new ClassPathResource("reports/kek.jasper");
       JasperPrint jasperPrint = JasperFillManager.fillReport(template.getInputStream(), parameters, new JREmptyDataSource());
