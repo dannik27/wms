@@ -9,6 +9,7 @@ import com.patis.wms.workflow.service.GetFromCustomer;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class GetFromCustomerController {
 
   @PostMapping("/receiveTransportation/{id_transportation}")
   void receiveTransportation(
+      HttpServletRequest request,
       @RequestBody LocalDateTime dateReceived,
       @PathVariable("id_transportation") long transportationId) {
 

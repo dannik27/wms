@@ -91,10 +91,10 @@ insert into waybill (info, id_transport_company) values ('транспортна
 insert into packing_list (info) values ('товарная накладная');
 
 insert into transportation (id_request, id_packing_list, id_waybill, gross_weight, date_shipped, date_received)
-    values (1, 1, 1, 50, '2018-03-20 14:50', null);
+    values (1, 1, 1, 50, '2018-03-20 14:50', null); -- 1
 
-INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
-    VALUES (1, '2018-03-21 9:30', '2018-03-21 10:10', 0, 3); -- 1
+INSERT into task (id_worker, time_begin, time_end, operation_type, task_status, id_transportation)
+    VALUES (1, '2018-03-21 9:30', '2018-03-21 10:10', 0, 3, 1); -- 1
 
 INSERT INTO task_item (id_product, id_task, count) VALUES (1, 1, 15);
 INSERT INTO task_item (id_product, id_task, count) VALUES (2, 1, 20);
@@ -120,12 +120,12 @@ insert into waybill (info, id_transport_company) values ('транспортна
 insert into packing_list (info) values ('товарная накладная 2');
 
 insert into transportation (id_request, id_packing_list, id_waybill, gross_weight, date_shipped, date_received)
-    values (2, 2, 2, 22, null, null);
+    values (2, 2, 2, 22, null, null); -- 2
 
-INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
-    VALUES (3, null, '2018-03-22', 1, 3); -- 2
-INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
-    VALUES (2, null, '2018-03-23', 0, 3); -- 3
+INSERT into task (id_worker, time_begin, time_end, operation_type, task_status, id_transportation)
+    VALUES (3, null, '2018-03-22', 1, 3, 2); -- 2
+INSERT into task (id_worker, time_begin, time_end, operation_type, task_status, id_transportation)
+    VALUES (2, null, '2018-03-23', 0, 3, 2); -- 3
 
 INSERT INTO task_item (id_product, id_task, count) VALUES (1, 2, 10); -- 3
 
@@ -148,10 +148,10 @@ insert into waybill (info, id_transport_company) values ('транспортна
 insert into packing_list (info) values ('товарная накладная 3');
 
 insert into transportation (id_request, id_packing_list, id_waybill, gross_weight, date_shipped, date_received)
-    values (3, 3, 3, 30, null, null);
+    values (3, 3, 3, 30, null, null); -- 3
 
-INSERT into task (id_worker, time_begin, time_end, operation_type, task_status)
-    VALUES (2, null, '2018-03-24', 1, 3); -- 4
+INSERT into task (id_worker, time_begin, time_end, operation_type, task_status, id_transportation)
+    VALUES (2, null, '2018-03-24', 1, 3, 3); -- 4
 
 INSERT INTO task_item (id_product, id_task, count) VALUES (1, 4, 7); -- 5
 
