@@ -123,9 +123,9 @@ insert into transportation (id_request, id_packing_list, id_waybill, gross_weigh
     values (2, 2, 2, 22, null, null); -- 2
 
 INSERT into task (id_worker, time_begin, time_end, operation_type, task_status, id_transportation)
-    VALUES (3, null, '2018-03-22', 1, 3, 2); -- 2
+    VALUES (3, '2018-03-22', '2018-03-22', 1, 3, 2); -- 2
 INSERT into task (id_worker, time_begin, time_end, operation_type, task_status, id_transportation)
-    VALUES (2, null, '2018-03-23', 0, 3, 2); -- 3
+    VALUES (2, '2018-03-23', '2018-03-23', 0, 3, 2); -- 3
 
 INSERT INTO task_item (id_product, id_task, count) VALUES (1, 2, 10); -- 3
 
@@ -152,7 +152,7 @@ insert into transportation (id_request, id_packing_list, id_waybill, gross_weigh
     values (3, 3, 3, 30, null, null); -- 3
 
 INSERT into task (id_worker, time_begin, time_end, operation_type, task_status, id_transportation)
-    VALUES (2, null, '2018-03-24', 1, 3, 3); -- 4
+    VALUES (2, '2018-03-24', '2018-03-24', 1, 3, 3); -- 4
 
 INSERT INTO task_item (id_product, id_task, count) VALUES (1, 4, 7); -- 5
 
