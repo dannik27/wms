@@ -7,6 +7,7 @@ import com.patis.wms.service.TransportationService;
 import com.patis.wms.workflow.TaskDTO;
 import com.patis.wms.workflow.service.GetFromCustomer;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
@@ -61,9 +62,20 @@ public class GetFromCustomerController {
     if((transportation != null) && (transportation.getDateReceived() == null)){
       getFromCustomer.receiveTransportation ( dateReceived, transportationId );
     }
+  }
 
+  @PostMapping("/v2/receiveTransportation/{id_transportation}")
+  void receiveTransportationv2(
+          @RequestBody String dateReceivedStr,
+          @PathVariable("id_transportation") long transportationId) {
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH-mm");
+    LocalDateTime dateReceived = LocalDateTime.parse(dateReceivedStr, formatter);
 
+    Transportation transportation = transportationService.findOne(transportationId);
+    if((transportation != null) && (transportation.getDateReceived() == null)){
+      getFromCustomer.receiveTransportation ( dateReceived, transportationId );
+    }
   }
 
   @PostMapping("/complete/{id_request}")
