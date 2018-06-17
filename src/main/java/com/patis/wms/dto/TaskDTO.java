@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class TaskDTO {
 
     private long id;
-    private TaskStatus taskStatus;
+    private String taskStatus;
     private OperationType operationType;
     private List<DistributionDTO> distributions;
     private LocalDateTime timeBegin;
@@ -26,7 +26,7 @@ public class TaskDTO {
 
     public TaskDTO(Task task){
         id = task.getId();
-        taskStatus = task.getTaskStatus();
+        taskStatus = task.getTaskStatus().name();
         operationType = task.getOperationType();
 
         distributions = task.getTaskItems().stream()

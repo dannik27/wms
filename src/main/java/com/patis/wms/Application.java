@@ -48,6 +48,7 @@ public class Application extends WebMvcConfigurerAdapter {
     public void configureMessageConverters(List<HttpMessageConverter< ? >> converters) {
         GsonHttpMessageConverter msgConverter = new GsonHttpMessageConverter();
         Gson gson = new GsonBuilder()
+                .setLenient()
                 .setPrettyPrinting()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())

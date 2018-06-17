@@ -49,8 +49,9 @@ public class TaskController {
             tasks = taskService.findAll();
         }
 
-        List<TaskDTO> result = tasks.stream().map(TaskDTO::new)
+        List<TaskDTO> result = tasks.stream()
                 .filter(t ->!current.isPresent() || ! current.get() || ( current.get() && (t.getTaskStatus() == TaskStatus.IN_WORK || t.getTaskStatus() == TaskStatus.READY)) )
+                .map(TaskDTO::new)
                 .collect(Collectors.toList());
         if(result != null){
             return new ResponseEntity<>(result, HttpStatus.OK);

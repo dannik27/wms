@@ -3,6 +3,7 @@ package com.patis.wms.controller;
 import com.patis.wms.StorehouseException;
 import com.patis.wms.dto.TransportationDTO;
 import com.patis.wms.dto.create.TransportationCreateDTO;
+import com.patis.wms.entity.Task;
 import com.patis.wms.entity.Transportation;
 import com.patis.wms.service.RequestService;
 import com.patis.wms.service.TaskManagerService;
@@ -10,7 +11,9 @@ import com.patis.wms.service.TaskService;
 import com.patis.wms.service.TransportCompanyService;
 import com.patis.wms.service.TransportationService;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,7 +47,18 @@ public class TransportationController {
     @GetMapping("/")
     ResponseEntity<List<TransportationDTO>> findAll(){
 
+        Map<Long, TransportationDTO> taskMap = new HashMap<>();
+
+        List<Task> tasks = taskService.findAll();
         List<TransportationDTO> result = transportationService.findAll().stream().map(TransportationDTO::new).collect(Collectors.toList());
+
+        for(TransportationDTO transportation : result){
+            taskMap.put(transportation.getId(), transportation);
+        }
+        for(Task task : tasks){
+            taskMap.get(task.getTransportation().getId()).setStatus(task.getTaskStatus().name());
+        }
+
         if(result != null){
             return new ResponseEntity<>(result, HttpStatus.OK);
         }else{

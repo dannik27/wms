@@ -23,6 +23,8 @@ public class TransportationDTO {
     private long id_task_in;
     private long id_task_out;
 
+    private String status;
+
     public TransportationDTO(Transportation transportation){
         id = transportation.getId();
         grossWeight = transportation.getGrossWeight();

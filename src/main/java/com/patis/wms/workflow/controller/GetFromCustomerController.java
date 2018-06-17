@@ -4,6 +4,7 @@ import com.patis.wms.dto.create.RequestCreateDTO;
 import com.patis.wms.dto.create.TransportationCreateDTO;
 import com.patis.wms.entity.Transportation;
 import com.patis.wms.service.TransportationService;
+import com.patis.wms.workflow.DateTimeDTO;
 import com.patis.wms.workflow.TaskDTO;
 import com.patis.wms.workflow.service.GetFromCustomer;
 import java.time.LocalDateTime;
@@ -66,15 +67,12 @@ public class GetFromCustomerController {
 
   @PostMapping("/v2/receiveTransportation/{id_transportation}")
   void receiveTransportationv2(
-          @RequestBody String dateReceivedStr,
+          @RequestBody DateTimeDTO dto,
           @PathVariable("id_transportation") long transportationId) {
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy_HH-mm");
-    LocalDateTime dateReceived = LocalDateTime.parse(dateReceivedStr, formatter);
 
     Transportation transportation = transportationService.findOne(transportationId);
     if((transportation != null) && (transportation.getDateReceived() == null)){
-      getFromCustomer.receiveTransportation ( dateReceived, transportationId );
+      getFromCustomer.receiveTransportation ( dto.getDateTime(), transportationId );
     }
   }
 
